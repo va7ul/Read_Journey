@@ -1,0 +1,20 @@
+:root {
+    --background-primary: rgb(20, 20, 20);
+    --background-secondary: rgb(31, 31, 31);
+    --background-tertiary: rgb(38, 38, 38);
+
+
+
+    --text-primary: rgb(249, 249, 249);
+    --text-secondary: rgb(104, 104, 104);
+
+
+
+
+
+    --active: rgb(79, 146, 247);
+    --success: rgb(48, 185, 77);
+    --error: rgb(233, 5, 22);
+
+    --transition: 500ms cubic-bezier(0.4, 0, 0.2, 1);
+}

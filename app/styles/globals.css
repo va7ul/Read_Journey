@@ -1,0 +1,125 @@
+@import url('./variables.css');
+@import "tailwindcss";
+
+@font-face {
+  font-family: 'Gilroy';
+  src: url('/fonts/Gilroy-Medium.woff2') format('woff2'),
+    url('/fonts/Gilroy-Medium.woff') format('woff');
+  font-weight: 500;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Gilroy';
+  src: url('/fonts/Gilroy-Bold.woff2') format('woff2'),
+    url('/fonts/Gilroy-Bold.woff') format('woff');
+  font-weight: 700;
+  font-style: normal;
+  font-display: swap;
+}
+
+
+
+html,
+body {
+  max-width: 100vw;
+  height: 100vh;
+  /* overflow-x: hidden; */
+  scroll-behavior: smooth;
+  color: var(--text-primary, white);
+  background: var(--background-primary, black);
+  letter-spacing: 0;
+  font-family: 'Gilroy', sans-serif;
+  font-weight: 500;
+  font-size: 14px;
+  line-height: 1.3;
+
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+* {
+  box-sizing: border-box;
+  padding: 0;
+  margin: 0;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+
+  transition: var(--transition);
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+p {
+  margin-top: 0;
+  margin-bottom: 0;
+}
+
+ul,
+ol,
+li {
+  margin-top: 0;
+  margin-bottom: 0;
+  padding-left: 0;
+  list-style: none;
+}
+
+img {
+  display: block;
+  max-width: 100%;
+  height: auto;
+}
+
+button {
+  margin: 0;
+  padding: 0;
+  border: transparent;
+  cursor: pointer;
+
+  transition: var(--transition);
+}
+
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+input[type='number'] {
+  -moz-appearance: textfield;
+  appearance: textfield;
+}
+
+.btn-light {
+  border-radius: 30px;
+  color: var(--background-secondary);
+  background-color: var(--text-primary);
+  border: transparent;
+
+  &:hover {
+    color: var(--text-primary);
+    background-color: transparent;
+    border: 1px solid rgba(249, 249, 249, 0.2);
+  }
+}
+
+.btn-dark {
+  border-radius: 30px;
+  color: var(--text-primary);
+  background-color: transparent;
+  border: 1px solid rgba(249, 249, 249, 0.2);
+
+  &:hover {
+    color: var(--background-secondary);
+    background-color: var(--text-primary);
+    border: transparent;
+  }
+}
