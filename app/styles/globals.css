@@ -19,7 +19,9 @@
   font-display: swap;
 }
 
-
+@theme {
+  --color-regal-blue: #243c5a;
+}
 
 html,
 body {
