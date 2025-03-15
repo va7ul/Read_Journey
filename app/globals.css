@@ -1,4 +1,3 @@
-@import url('./variables.css');
 @import "tailwindcss";
 
 @font-face {
@@ -20,74 +19,45 @@
 }
 
 @theme {
-  --color-regal-blue: #243c5a;
+  --font-display: "Gilroy", "sans-serif";
+
+  --color-black-primary: #141414;
+  --color-black-secondary: #1F1F1F;
+  --color-black-tertiar: #262626;
+
+  --color-white-primary: #F9F9F9;
+  --color-white-secondary: #686868;
+  --color-white-tertiar: #E3E3E3;
+
+  --color-active: #4F92F7;
+  --color-success: #30B94D;
+  --color-error: #E90516;
+
+  /* --breakpoint-*: initial;
+  --breakpoint-mobile: 375px;
+  --breakpoint-tablet: 768px; //md
+  --breakpoint-laptop: 1024px; //lg
+  --breakpoint-desktop: 1280px; //xl */
 }
 
-html,
 body {
   max-width: 100vw;
   height: 100vh;
-  /* overflow-x: hidden; */
-  scroll-behavior: smooth;
-  color: var(--text-primary, white);
-  background: var(--background-primary, black);
-  letter-spacing: 0;
-  font-family: 'Gilroy', sans-serif;
-  font-weight: 500;
-  font-size: 14px;
-  line-height: 1.3;
+  overflow-x: hidden;
 
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
 
-* {
-  box-sizing: border-box;
-  padding: 0;
-  margin: 0;
-}
-
-a {
-  color: inherit;
-  text-decoration: none;
-
-  transition: var(--transition);
-}
-
-h1,
-h2,
-h3,
-h4,
-h5,
-h6,
-p {
-  margin-top: 0;
-  margin-bottom: 0;
-}
-
-ul,
-ol,
-li {
-  margin-top: 0;
-  margin-bottom: 0;
-  padding-left: 0;
-  list-style: none;
-}
-
-img {
-  display: block;
-  max-width: 100%;
-  height: auto;
-}
-
+a,
 button {
-  margin: 0;
-  padding: 0;
-  border: transparent;
-  cursor: pointer;
-
-  transition: var(--transition);
+  @apply transition duration-500 ease-in-out;
 }
+
+
+
+
+
 
 input::-webkit-outer-spin-button,
 input::-webkit-inner-spin-button {

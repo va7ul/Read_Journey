@@ -1,4 +1,4 @@
-import { UnauthorizedDashboard } from '../components/UnauthorizedDashboard/UnauthorizedDashboard';
+import { UnauthorizedDashboard } from '../components/UnauthorizedDashboard';
 
 export default function Page() {
   return (
