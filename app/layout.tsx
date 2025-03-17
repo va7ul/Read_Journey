@@ -15,6 +15,21 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
+      <head>
+        <link rel="icon" href="/favicon.ico" sizes="any" />
+        <link
+          rel="icon"
+          type="image/x-icon"
+          href="favicon_light.ico"
+          media="(prefers-color-scheme: dark)"
+        />
+        <link
+          rel="icon"
+          type="image/x-icon"
+          href="favicon_dark.ico"
+          media="(prefers-color-scheme: light)"
+        />
+      </head>
       <body className="text-white-primary bg-black-primary font-display scroll-smooth text-xs leading-[18px] font-medium">
         {header}
         <main>{children}</main>
