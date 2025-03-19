@@ -30,7 +30,7 @@ export default function RootLayout({
           media="(prefers-color-scheme: light)"
         />
       </head>
-      <body className="text-white-primary bg-black-primary font-display scroll-smooth text-xs leading-[18px] font-medium">
+      <body className="text-white-primary bg-black-primary font-display scroll-smooth text-xs font-medium md:text-sm">
         {header}
         <main>{children}</main>
       </body>

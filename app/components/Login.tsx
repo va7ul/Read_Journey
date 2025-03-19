@@ -2,6 +2,7 @@
 
 import { useState } from 'react';
 import { useRouter } from 'next/navigation';
+import Link from 'next/link';
 import { useForm, SubmitHandler } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 import Image from 'next/image';
@@ -24,10 +25,10 @@ export const Login = () => {
     handleSubmit,
     formState: { errors },
   } = useForm<Inputs>({
-    defaultValues: {
-      email: 'test@ukr.net',
-      password: '123456',
-    },
+    // defaultValues: {
+    //   email: 'test@ukr.net',
+    //   password: '123456',
+    // },
     resolver: yupResolver(schema),
   });
 
@@ -44,38 +45,54 @@ export const Login = () => {
   return (
     <>
       {/* {loading && <CustomLoader />} */}
-      <form className="" onSubmit={handleSubmit(onSubmit)}>
-        <div className="">
-          <input
-            className="w-full"
-            suppressHydrationWarning={true}
-            {...register('email')}
-            placeholder="Mail"
-          />
-          <span>{errors.email?.message}</span>
-        </div>
-        <div className="">
-          <input
-            className="w-full"
-            suppressHydrationWarning={true}
-            {...register('password')}
-            placeholder="Password"
-            type={showPassword ? 'text' : 'password'}
-          />
-          <Image
-            className="cursor-pointer md:h-[20px] md:w-[20px]"
-            src={showPassword ? EyeOff : Eye}
-            alt={showPassword ? 'Open eye icon' : 'Close eye icon'}
-            onClick={onShow}
-            width={18}
-            height={18}
-          />
-          <span>{errors.password?.message}</span>
+      <form
+        onSubmit={handleSubmit(onSubmit)}
+        className="flex h-[250px] flex-col md:h-[300px]"
+      >
+        <div>
+          <div className="input-container">
+            <span className="placeholder">Mail:</span>
+            <input
+              className="pl-12 md:pl-13.5"
+              suppressHydrationWarning={true}
+              {...register('email')}
+            />
+          </div>
+          {errors.email && <div className="error">{errors.email?.message}</div>}
         </div>
 
-        <button type="submit" className="">
-          Log In
-        </button>
+        <div className="mt-2 md:mt-3.5">
+          <div className="input-container">
+            <span className="placeholder">Password:</span>
+            <input
+              className="pl-19.5 md:pl-22"
+              suppressHydrationWarning={true}
+              {...register('password')}
+              type={showPassword ? 'text' : 'password'}
+            />
+            <Image
+              className="absolute top-3.5 right-4 cursor-pointer md:right-4.5 md:h-[20px] md:w-[20px]"
+              src={showPassword ? EyeOff : Eye}
+              alt={showPassword ? 'Open eye icon' : 'Close eye icon'}
+              onClick={onShow}
+              width={18}
+              height={18}
+            />
+          </div>
+          {errors.email && (
+            <div className="error">{errors.password?.message}</div>
+          )}
+        </div>
+
+        <div className="mt-auto">
+          <button type="submit">Log In</button>
+          <Link
+            href="/register"
+            className="text-white-secondary ml-3.5 border-b-1 md:ml-5"
+          >
+            Don’t have an account?
+          </Link>
+        </div>
       </form>
     </>
   );
