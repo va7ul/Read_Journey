@@ -10,7 +10,7 @@ type Props = {
 export const UnauthorizedDashboard = ({ children }: Props) => {
   return (
     <div className="flex flex-col items-center justify-center gap-y-2.5 p-5 md:flex-row md:gap-x-4 md:p-8">
-      <div className="bg-black-secondary h-full w-full rounded-[30px] p-5 pb-10 md:px-16 md:py-10 md:max-xl:pb-[214px] xl:max-h-[736px] xl:max-w-[600px]">
+      <div className="bg-black-secondary flex h-[411px] w-full flex-col rounded-[30px] p-5 pb-10 md:h-[960px] md:px-16 md:py-10 md:max-xl:pb-[214px] xl:max-h-[736px] xl:max-w-[600px]">
         <Logo />
         <h1 className="mt-10 mb-5 max-w-[295px] text-[32px] font-bold md:mt-[156px] md:mb-10 md:max-w-[444px] md:text-[64px] xl:mt-[108px]">
           Expand your mind, reading

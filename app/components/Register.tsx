@@ -8,15 +8,16 @@ import { yupResolver } from '@hookform/resolvers/yup';
 import Image from 'next/image';
 import EyeOff from '@icons/eye-off.svg';
 import Eye from '@icons/eye.svg';
-import { schema } from '@/lib/schemes/login';
+import { schema } from '@/lib/schemes/register';
 // import { CustomLoader } from '../CustomLoader';
 
 type Inputs = {
+  name: string;
   email: string;
   password: string;
 };
 
-export const Login = () => {
+export const Register = () => {
   // const router = useRouter();
   const [showPassword, setShowPassword] = useState(false);
 
@@ -36,9 +37,9 @@ export const Login = () => {
     setShowPassword(!showPassword);
   };
 
-  const onSubmit: SubmitHandler<Inputs> = ({ email, password }) => {
-    // signIn(email, password);
-    console.log({ email, password });
+  const onSubmit: SubmitHandler<Inputs> = ({ name, email, password }) => {
+    // signUp(name, email, password);
+    console.log({ name, email, password });
     // router.back();
   };
 
@@ -47,6 +48,16 @@ export const Login = () => {
       {/* {loading && <CustomLoader />} */}
       <form id="login-form">
         <div className="input-container">
+          <span className="placeholder">Name:</span>    
+          <input
+            className="pl-14 md:pl-16"
+            suppressHydrationWarning={true}
+            {...register('name')}
+          />
+        </div>
+        {errors.name && <div className="error">{errors.name?.message}</div>}
+
+        <div className="input-container mt-2 md:mt-3.5">
           <span className="placeholder">Mail:</span>
           <input
             className="pl-12 md:pl-13.5"
@@ -79,16 +90,16 @@ export const Login = () => {
       </form>
       <div className="mt-auto">
         <button
-          className="btn-light px-[45px] py-3 md:px-[64px] md:py-4"
+          className="btn-light px-[29px] py-3 md:px-[54px] md:py-4"
           onClick={handleSubmit(onSubmit)}
         >
-          Log In
+          Registration
         </button>
         <Link
-          href="/register"
+          href="/login"
           className="text-white-secondary hover:text-white-primary ml-3.5 border-b-1 md:ml-5"
         >
-          Don’t have an account?
+          Already have an account?
         </Link>
       </div>
     </>

@@ -1,8 +1,9 @@
-@import "tailwindcss";
+@import 'tailwindcss';
 
 @font-face {
   font-family: 'Gilroy';
-  src: url('/fonts/Gilroy-Medium.woff2') format('woff2'),
+  src:
+    url('/fonts/Gilroy-Medium.woff2') format('woff2'),
     url('/fonts/Gilroy-Medium.woff') format('woff');
   font-weight: 500;
   font-style: normal;
@@ -11,38 +12,34 @@
 
 @font-face {
   font-family: 'Gilroy';
-  src: url('/fonts/Gilroy-Bold.woff2') format('woff2'),
+  src:
+    url('/fonts/Gilroy-Bold.woff2') format('woff2'),
     url('/fonts/Gilroy-Bold.woff') format('woff');
   font-weight: 700;
   font-style: normal;
   font-display: swap;
 }
 
-
 @theme {
-  --font-display: "Gilroy", "sans-serif";
+  --font-display: 'Gilroy', 'sans-serif';
 
   --color-black-primary: #141414;
-  --color-black-secondary: #1F1F1F;
-  --color-black-tertiar: #262626;
+  --color-black-secondary: #1f1f1f;
+  --color-black-tertiary: #262626;
 
-  --color-white-primary: #F9F9F9;
+  --color-white-primary: #f9f9f9;
   --color-white-secondary: #686868;
-  --color-white-tertiar: #E3E3E3;
+  --color-white-tertiar: #e3e3e3;
 
-  --color-active: #4F92F7;
-  --color-success: #30B94D;
-  --color-error: #E90516;
+  --color-active: #4f92f7;
+  --color-success: #30b94d;
+  --color-error: #e90516;
 
   /* --breakpoint-*: initial;
   --breakpoint-mobile: 375px;
   --breakpoint-tablet: 768px; //md
   --breakpoint-laptop: 1024px; //lg
   --breakpoint-desktop: 1280px; //xl */
-}
-
-* {
-  line-height: 1;
 }
 
 body {
@@ -54,23 +51,30 @@ body {
   -moz-osx-font-smoothing: grayscale;
 }
 
-a,
-button {
-  @apply transition-colors duration-500 ease-in-out cursor-pointer;
-}
-
-
 @layer base {
-  input {
-    width: 100%;
-    background-color: var(--color-black-tertiar);
-    border-radius: var(--radius-xl);
-    padding: 14px;
+  * {
+    @apply leading-none;
+  }
 
+  button {
+    @apply rounded-[30px];
+  }
+
+  a,
+  button {
+    @apply cursor-pointer transition-colors duration-500 ease-in-out;
+  }
+
+  input {
+    @apply bg-black-tertiary w-full rounded-xl border border-solid border-transparent p-3.5 outline-transparent transition-colors duration-500 ease-in-out;
+
+    &:hover {
+      @apply border-white-primary/10;
+    }
   }
 }
 
-@media (width>=768px) {
+@media (width>=theme(--breakpoint-md)) {
   @layer base {
     input {
       padding-top: 16px;
@@ -79,48 +83,37 @@ button {
   }
 }
 
+@utility placeholder {
+  @apply text-white-secondary pointer-events-none absolute left-[14px];
 
-
-/* @utility input-base {
-  @apply bg-black-tertiar w-full rounded-xl p-3.5 md:py-4;
-} */
-
-
-
-
-@layer components {
-  .input-container {
-    width: 100%;
-    display: flex;
-    align-items: center;
-    position: relative;
-  }
-
-  .placeholder {
-    color: var(--color-white-secondary);
-    pointer-events: none;
-    position: absolute;
-    left: 14px;
-  }
-
-  .error {
-    color: var(--color-error);
-    margin-top: 8px;
-    padding-left: 14px;
+  @media (width>=theme(--breakpoint-md)) {
+    @apply left-[16px];
   }
 }
 
-@media (width>=768px) {
-  @layer components {
-    .placeholder {
-      left: 16px;
-    }
+@utility input-container {
+  @apply relative flex w-full items-center;
+}
+
+@utility error {
+  @apply text-error mt-2 pl-3.5;
+}
+
+@utility btn-light {
+  @apply text-black-secondary bg-white-primary border border-solid border-transparent text-sm font-bold md:text-xl;
+
+  &:hover {
+    @apply border-white-primary/20 text-white-primary bg-transparent;
   }
 }
 
+@utility btn-dark {
+  @apply text-white-primary border-white-primary/20 border border-solid bg-transparent text-sm font-bold md:text-base;
 
-
-
+  &:hover {
+    @apply text-black-secondary bg-white-primary border-transparent;
+  }
+}
 
 input::-webkit-outer-spin-button,
 input::-webkit-inner-spin-button {
@@ -131,30 +124,4 @@ input::-webkit-inner-spin-button {
 input[type='number'] {
   -moz-appearance: textfield;
   appearance: textfield;
-}
-
-.btn-light {
-  border-radius: 30px;
-  color: var(--background-secondary);
-  background-color: var(--text-primary);
-  border: transparent;
-
-  &:hover {
-    color: var(--text-primary);
-    background-color: transparent;
-    border: 1px solid rgba(249, 249, 249, 0.2);
-  }
-}
-
-.btn-dark {
-  border-radius: 30px;
-  color: var(--text-primary);
-  background-color: transparent;
-  border: 1px solid rgba(249, 249, 249, 0.2);
-
-  &:hover {
-    color: var(--background-secondary);
-    background-color: var(--text-primary);
-    border: transparent;
-  }
 }

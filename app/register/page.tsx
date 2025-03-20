@@ -1,9 +1,10 @@
 import { UnauthorizedDashboard } from '../components/UnauthorizedDashboard';
+import { Register } from '../components/Register';
 
 export default function Page() {
   return (
-    <>
-      <UnauthorizedDashboard>Login</UnauthorizedDashboard>
-    </>
+    <UnauthorizedDashboard>
+      <Register />
+    </UnauthorizedDashboard>
   );
 }
