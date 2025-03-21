@@ -5,6 +5,7 @@ import { useState } from 'react';
 import Link from 'next/link';
 import { useForm, SubmitHandler } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
+import clsx from 'clsx';
 import Image from 'next/image';
 import EyeOff from '@icons/eye-off.svg';
 import Eye from '@icons/eye.svg';
@@ -23,7 +24,7 @@ export const Login = () => {
   const {
     register,
     handleSubmit,
-    formState: { errors },
+    formState: { errors, isSubmitted },
   } = useForm<Inputs>({
     // defaultValues: {
     //   email: 'test@ukr.net',
@@ -49,7 +50,10 @@ export const Login = () => {
         <div className="input-container">
           <span className="placeholder">Mail:</span>
           <input
-            className="pl-12 md:pl-13.5"
+            className={clsx(
+              'pl-12 md:pl-13.5',
+              errors.email ? 'border-error' : isSubmitted && 'border-success'
+            )}
             suppressHydrationWarning={true}
             {...register('email')}
           />
@@ -59,7 +63,10 @@ export const Login = () => {
         <div className="input-container mt-2 md:mt-3.5">
           <span className="placeholder">Password:</span>
           <input
-            className="pl-19.5 md:pl-22"
+            className={clsx(
+              'pl-19.5 md:pl-22',
+              errors.password ? 'border-error' : isSubmitted && 'border-success'
+            )}
             suppressHydrationWarning={true}
             {...register('password')}
             type={showPassword ? 'text' : 'password'}

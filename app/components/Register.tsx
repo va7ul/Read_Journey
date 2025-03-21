@@ -5,6 +5,7 @@ import { useState } from 'react';
 import Link from 'next/link';
 import { useForm, SubmitHandler } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
+import clsx from 'clsx';
 import Image from 'next/image';
 import EyeOff from '@icons/eye-off.svg';
 import Eye from '@icons/eye.svg';
@@ -24,7 +25,7 @@ export const Register = () => {
   const {
     register,
     handleSubmit,
-    formState: { errors },
+    formState: { errors, isSubmitted },
   } = useForm<Inputs>({
     // defaultValues: {
     //   email: 'test@ukr.net',
@@ -48,9 +49,12 @@ export const Register = () => {
       {/* {loading && <CustomLoader />} */}
       <form id="login-form">
         <div className="input-container">
-          <span className="placeholder">Name:</span>    
+          <span className="placeholder">Name:</span>
           <input
-            className="pl-14 md:pl-16"
+            className={clsx(
+              'pl-14 md:pl-16',
+              errors.name ? 'border-error' : isSubmitted && 'border-success'
+            )}
             suppressHydrationWarning={true}
             {...register('name')}
           />
@@ -60,7 +64,10 @@ export const Register = () => {
         <div className="input-container mt-2 md:mt-3.5">
           <span className="placeholder">Mail:</span>
           <input
-            className="pl-12 md:pl-13.5"
+            className={clsx(
+              'pl-12 md:pl-13.5',
+              errors.email ? 'border-error' : isSubmitted && 'border-success'
+            )}
             suppressHydrationWarning={true}
             {...register('email')}
           />
@@ -70,7 +77,10 @@ export const Register = () => {
         <div className="input-container mt-2 md:mt-3.5">
           <span className="placeholder">Password:</span>
           <input
-            className="pl-19.5 md:pl-22"
+            className={clsx(
+              'pl-19.5 md:pl-22',
+              errors.password ? 'border-error' : isSubmitted && 'border-success'
+            )}
             suppressHydrationWarning={true}
             {...register('password')}
             type={showPassword ? 'text' : 'password'}
@@ -88,7 +98,7 @@ export const Register = () => {
           <div className="error">{errors.password?.message}</div>
         )}
       </form>
-      <div className="mt-auto">
+      <div className="mt-5 md:mt-[82px] xl:mt-auto">
         <button
           className="btn-light px-[29px] py-3 md:px-[54px] md:py-4"
           onClick={handleSubmit(onSubmit)}

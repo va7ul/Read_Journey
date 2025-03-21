@@ -71,14 +71,17 @@ body {
     &:hover {
       @apply border-white-primary/10;
     }
+
+    &:focus-visible {
+      @apply outline-white-primary/10 outline;
+    }
   }
 }
 
 @media (width>=theme(--breakpoint-md)) {
   @layer base {
     input {
-      padding-top: 16px;
-      padding-bottom: 16px;
+      @apply py-4;
     }
   }
 }
@@ -96,7 +99,7 @@ body {
 }
 
 @utility error {
-  @apply text-error mt-2 pl-3.5;
+  @apply text-error mt-1 pl-3.5 md:mt-2;
 }
 
 @utility btn-light {
