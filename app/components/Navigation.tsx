@@ -4,7 +4,11 @@ import clsx from 'clsx';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 
-export const Navigation = () => {
+type Props = {
+  onClose?: () => void;
+};
+
+export const Navigation = ({ onClose }: Props) => {
   const pathname = usePathname();
 
   return (
@@ -12,6 +16,7 @@ export const Navigation = () => {
       <li>
         <Link
           href="/"
+          onClick={onClose}
           className={clsx(
             'hover:text-white-primary',
             pathname === '/'
@@ -25,6 +30,7 @@ export const Navigation = () => {
       <li>
         <Link
           href="/library"
+          onClick={onClose}
           className={clsx(
             'hover:text-white-primary',
             pathname === '/library'

@@ -47,14 +47,16 @@ export const MobMenu = ({ isOpen, onClose }: Props) => {
           isOpen ? 'translate-x-0' : 'translate-x-full'
         }`}
       >
-        <Navigation />
+        <Navigation onClose={onClose} />
         <button
           onClick={onClose}
           className="hover:bg-black-secondary absolute top-8.5 right-10 p-1.5 text-white"
         >
           <Image src={X} alt="Photo of iPhone" />
         </button>
-        <button className="btn-dark w-[92px] px-5 py-2.5">Log out</button>
+        <button className="btn-dark w-[92px] px-5 py-2.5" onClick={onClose}>
+          Log out
+        </button>
       </div>
     </>
   );
