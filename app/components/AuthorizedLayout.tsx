@@ -2,6 +2,6 @@ type Props = {
   children: React.ReactNode;
 };
 
-export const AuthorizedDashboard = ({ children }: Props) => {
+export const AuthorizedLayout = ({ children }: Props) => {
   return <div>{children}</div>;
 };

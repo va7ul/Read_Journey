@@ -1,5 +1,5 @@
-import { AuthorizedDashboard } from '../components/AuthorizedDashboard';
+import { AuthorizedLayout } from '../components/AuthorizedLayout';
 
 export default function Page() {
-  return <AuthorizedDashboard>My library</AuthorizedDashboard>;
+  return <AuthorizedLayout>My library</AuthorizedLayout>;
 }

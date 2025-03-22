@@ -7,7 +7,7 @@ type Props = {
   children: React.ReactNode;
 };
 
-export const UnauthorizedDashboard = ({ children }: Props) => {
+export const UnauthorizedLayout = ({ children }: Props) => {
   return (
     <div className="flex flex-col items-center justify-center gap-y-2.5 p-5 md:flex-row md:gap-x-4 md:p-8">
       <div className="bg-black-secondary flex w-full flex-col rounded-[30px] p-5 pb-10 md:min-h-[960px] md:px-16 md:py-10 md:max-xl:pb-[214px] xl:min-h-[800px] xl:max-w-[600px]">
