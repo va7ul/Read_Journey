@@ -9,7 +9,7 @@ import clsx from 'clsx';
 import Image from 'next/image';
 import EyeOff from '@icons/eye-off.svg';
 import Eye from '@icons/eye.svg';
-import { schema } from '@/lib/schemes/login';
+import { schema } from '@/assets/schemes/login';
 // import { CustomLoader } from '../CustomLoader';
 
 type Inputs = {
@@ -84,7 +84,7 @@ export const Login = () => {
           <div className="error">{errors.password?.message}</div>
         )}
       </form>
-      <div className="mt-auto">
+      <div className="mt-auto max-md:mt-5">
         <button
           className="btn-light px-[45px] py-3 md:px-[64px] md:py-4"
           onClick={handleSubmit(onSubmit)}

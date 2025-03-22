@@ -9,7 +9,7 @@ import clsx from 'clsx';
 import Image from 'next/image';
 import EyeOff from '@icons/eye-off.svg';
 import Eye from '@icons/eye.svg';
-import { schema } from '@/lib/schemes/register';
+import { schema } from '@/assets/schemes/register';
 // import { CustomLoader } from '../CustomLoader';
 
 type Inputs = {

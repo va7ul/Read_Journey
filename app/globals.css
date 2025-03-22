@@ -66,32 +66,12 @@ body {
   }
 
   input {
-    @apply bg-black-tertiary w-full rounded-xl border border-solid border-transparent p-3.5 outline-transparent transition-colors duration-500 ease-in-out;
-
-    &:hover {
-      @apply border-white-primary/10;
-    }
-
-    &:focus-visible {
-      @apply outline-white-primary/10 outline;
-    }
-  }
-}
-
-@media (width>=theme(--breakpoint-md)) {
-  @layer base {
-    input {
-      @apply py-4;
-    }
+    @apply bg-black-tertiary hover:border-white-primary/10 focus-visible:outline-white-primary/10 w-full rounded-xl border border-solid border-transparent p-3.5 outline outline-transparent transition-colors duration-500 ease-in-out md:py-4;
   }
 }
 
 @utility placeholder {
-  @apply text-white-secondary pointer-events-none absolute left-[14px];
-
-  @media (width>=theme(--breakpoint-md)) {
-    @apply left-[16px];
-  }
+  @apply text-white-secondary pointer-events-none absolute left-3.5 md:left-4;
 }
 
 @utility input-container {
@@ -103,19 +83,15 @@ body {
 }
 
 @utility btn-light {
-  @apply text-black-secondary bg-white-primary border border-solid border-transparent text-sm font-bold md:text-xl;
-
-  &:hover {
-    @apply border-white-primary/20 text-white-primary bg-transparent;
-  }
+  @apply text-black-secondary bg-white-primary hover:border-white-primary/20 hover:text-white-primary border border-solid border-transparent text-sm font-bold hover:bg-transparent md:text-xl;
 }
 
 @utility btn-dark {
-  @apply text-white-primary border-white-primary/20 border border-solid bg-transparent text-sm font-bold md:text-base;
+  @apply text-white-primary border-white-primary/20 hover:text-black-secondary hover:bg-white-primary border border-solid bg-transparent text-sm font-bold hover:border-transparent md:text-base;
+}
 
-  &:hover {
-    @apply text-black-secondary bg-white-primary border-transparent;
-  }
+@utility current-page {
+  @apply after:bg-active relative after:absolute after:-bottom-2 after:block after:h-0.75 after:w-full after:rounded-full after:content-[''];
 }
 
 input::-webkit-outer-spin-button,
