@@ -37,13 +37,13 @@ export const MobMenu = ({ isOpen, onClose }: Props) => {
     <>
       {isOpen && (
         <div
-          className="bg-black-primary/60 fixed inset-0 transition-opacity"
+          className="bg-black-primary/60 fixed inset-0 z-10 transition-opacity"
           onClick={onClose}
         />
       )}
 
       <div
-        className={`bg-black-tertiary fixed top-0 right-0 flex h-full w-[50%] min-w-[200px] transform flex-col items-center justify-between pt-70 pb-10 transition-transform duration-500 ease-in-out ${
+        className={`bg-black-tertiary fixed top-0 right-0 z-10 flex h-full w-[50%] min-w-[200px] transform flex-col items-center justify-between pt-70 pb-10 transition-transform duration-500 ease-in-out ${
           isOpen ? 'translate-x-0' : 'translate-x-full'
         }`}
       >
