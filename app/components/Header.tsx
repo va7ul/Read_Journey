@@ -6,9 +6,23 @@ import LogoImg from '@icons/logo.svg';
 import Menu from '@icons/mob-menu.svg';
 import { MobMenu } from './MobMenu';
 import { Navigation } from './Navigation';
+import { signOut } from '@/assets/utils/api';
 
 export const Header = () => {
   const [open, setOpen] = useState(false);
+
+  const handleLogOut = async () => {
+    try {
+      await signOut();
+      // router.back();
+      // toast.success('Welcome!');
+    } catch (error) {
+      const err = error as Error;
+
+      console.log(err.message);
+      // toast.error(err.message);
+    }
+  };
 
   return (
     <div className="p-5 pb-2.5 md:p-8 md:pb-4">
@@ -28,7 +42,10 @@ export const Header = () => {
           <button className="ml-2.5 md:hidden" onClick={() => setOpen(true)}>
             <Image src={Menu} alt="Photo of iPhone" />
           </button>
-          <button className="btn-dark ml-4 px-7 py-3 max-md:hidden">
+          <button
+            className="btn-dark ml-4 px-7 py-3 max-md:hidden"
+            onClick={handleLogOut}
+          >
             Log out
           </button>
         </div>

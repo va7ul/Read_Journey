@@ -10,6 +10,7 @@ import Image from 'next/image';
 import EyeOff from '@icons/eye-off.svg';
 import Eye from '@icons/eye.svg';
 import { schema } from '@/assets/schemes/register';
+import { useAuthStore } from '@/assets/store/useAuthStore';
 // import { CustomLoader } from '../CustomLoader';
 
 type Inputs = {
@@ -21,6 +22,8 @@ type Inputs = {
 export const Register = () => {
   // const router = useRouter();
   const [showPassword, setShowPassword] = useState(false);
+  const { signUp } = useAuthStore();
+  // const { signUp, isLoading } = useAuthStore();
 
   const {
     register,
@@ -28,8 +31,9 @@ export const Register = () => {
     formState: { errors, isSubmitted },
   } = useForm<Inputs>({
     // defaultValues: {
+    //   name: 'test@ukr.net',
     //   email: 'test@ukr.net',
-    //   password: '123456',
+    //   password: '1234567',
     // },
     resolver: yupResolver(schema),
   });
@@ -38,10 +42,17 @@ export const Register = () => {
     setShowPassword(!showPassword);
   };
 
-  const onSubmit: SubmitHandler<Inputs> = ({ name, email, password }) => {
-    // signUp(name, email, password);
-    console.log({ name, email, password });
-    // router.back();
+  const onSubmit: SubmitHandler<Inputs> = async ({ name, email, password }) => {
+    try {
+      await signUp(name, email, password);
+      // router.back();
+      // toast.success('Welcome!');
+    } catch (error) {
+      const err = error as Error;
+
+      console.log(err.message);
+      // toast.error(err.message);
+    }
   };
 
   return (

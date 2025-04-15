@@ -10,6 +10,7 @@ import Image from 'next/image';
 import EyeOff from '@icons/eye-off.svg';
 import Eye from '@icons/eye.svg';
 import { schema } from '@/assets/schemes/login';
+import { useAuthStore } from '@/assets/store/useAuthStore';
 // import { CustomLoader } from '../CustomLoader';
 
 type Inputs = {
@@ -20,6 +21,8 @@ type Inputs = {
 export const Login = () => {
   // const router = useRouter();
   const [showPassword, setShowPassword] = useState(false);
+  const { signIn } = useAuthStore();
+  // const { signIn, isLoading } = useAuthStore();
 
   const {
     register,
@@ -28,7 +31,7 @@ export const Login = () => {
   } = useForm<Inputs>({
     // defaultValues: {
     //   email: 'test@ukr.net',
-    //   password: '123456',
+    //   password: '1234567',
     // },
     resolver: yupResolver(schema),
   });
@@ -37,10 +40,17 @@ export const Login = () => {
     setShowPassword(!showPassword);
   };
 
-  const onSubmit: SubmitHandler<Inputs> = ({ email, password }) => {
-    // signIn(email, password);
-    console.log({ email, password });
-    // router.back();
+  const onSubmit: SubmitHandler<Inputs> = async ({ email, password }) => {
+    try {
+      await signIn(email, password);
+      // router.back();
+      // toast.success('Welcome!');
+    } catch (error) {
+      const err = error as Error;
+
+      console.log(err.message);
+      // toast.error(err.message);
+    }
   };
 
   return (
