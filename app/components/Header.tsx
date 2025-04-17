@@ -4,17 +4,17 @@ import { useState } from 'react';
 import Image from 'next/image';
 import LogoImg from '@icons/logo.svg';
 import Menu from '@icons/mob-menu.svg';
+import { useAuthStore } from '@/assets/store/useAuthStore';
 import { MobMenu } from './MobMenu';
 import { Navigation } from './Navigation';
-import { signOut } from '@/assets/utils/api';
 
 export const Header = () => {
   const [open, setOpen] = useState(false);
+  const { user, signOut } = useAuthStore();
 
   const handleLogOut = async () => {
     try {
       await signOut();
-      // router.back();
       // toast.success('Welcome!');
     } catch (error) {
       const err = error as Error;
@@ -23,6 +23,10 @@ export const Header = () => {
       // toast.error(err.message);
     }
   };
+
+  if (!user?.token) {
+    return null;
+  }
 
   return (
     <div className="p-5 pb-2.5 md:p-8 md:pb-4">
@@ -36,9 +40,9 @@ export const Header = () => {
         </div>
         <div className="flex items-center text-base font-bold">
           <div className="border-white-primary/20 bg-black-tertiary flex h-[35px] w-[35px] items-center justify-center rounded-full border border-solid md:h-10 md:w-10">
-            U
+            {user?.name?.slice(0, 1).toUpperCase()}
           </div>
-          <div className="ml-2 max-xl:hidden">User Name</div>
+          <div className="ml-2 max-xl:hidden">{user?.name}</div>
           <button className="ml-2.5 md:hidden" onClick={() => setOpen(true)}>
             <Image src={Menu} alt="Photo of iPhone" />
           </button>
@@ -51,7 +55,11 @@ export const Header = () => {
         </div>
       </div>
 
-      <MobMenu isOpen={open} onClose={() => setOpen(false)} />
+      <MobMenu
+        isOpen={open}
+        handleLogOut={handleLogOut}
+        onClose={() => setOpen(false)}
+      />
     </div>
   );
 };

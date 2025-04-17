@@ -5,10 +5,11 @@ import { Navigation } from './Navigation';
 
 type Props = {
   isOpen: boolean;
+  handleLogOut: () => void;
   onClose: () => void;
 };
 
-export const MobMenu = ({ isOpen, onClose }: Props) => {
+export const MobMenu = ({ isOpen, handleLogOut, onClose }: Props) => {
   useEffect(() => {
     // Закриваємо Drawer при натисканні ESC
     const handleKeyDown = (event: KeyboardEvent) => {
@@ -54,7 +55,10 @@ export const MobMenu = ({ isOpen, onClose }: Props) => {
         >
           <Image src={X} alt="Photo of iPhone" />
         </button>
-        <button className="btn-dark w-[92px] px-5 py-2.5" onClick={onClose}>
+        <button
+          className="btn-dark w-[92px] px-5 py-2.5"
+          onClick={handleLogOut}
+        >
           Log out
         </button>
       </div>

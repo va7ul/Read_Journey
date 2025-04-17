@@ -1,7 +1,6 @@
 'use client';
 
 import { useState } from 'react';
-// import { useRouter } from 'next/navigation';
 import Link from 'next/link';
 import { useForm, SubmitHandler } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
@@ -19,7 +18,6 @@ type Inputs = {
 };
 
 export const Login = () => {
-  // const router = useRouter();
   const [showPassword, setShowPassword] = useState(false);
   const { signIn } = useAuthStore();
   // const { signIn, isLoading } = useAuthStore();
@@ -43,7 +41,6 @@ export const Login = () => {
   const onSubmit: SubmitHandler<Inputs> = async ({ email, password }) => {
     try {
       await signIn(email, password);
-      // router.back();
       // toast.success('Welcome!');
     } catch (error) {
       const err = error as Error;

@@ -1,5 +1,6 @@
 import type { Metadata } from 'next';
 import './globals.css';
+import { ClientAuthInit } from './components/ClientAuthInit';
 
 export const metadata: Metadata = {
   title: 'Read Journey',
@@ -31,6 +32,7 @@ export default function RootLayout({
         />
       </head>
       <body className="text-white-primary bg-black-primary font-display scroll-smooth text-xs font-medium md:text-sm">
+        <ClientAuthInit />
         {header}
         <main>{children}</main>
       </body>

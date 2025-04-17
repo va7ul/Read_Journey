@@ -1,6 +1,17 @@
 import axios from 'axios';
 import { handleError } from './handleError';
+import { getAuthStore } from '../store/useAuthStore';
+
 axios.defaults.baseURL = 'https://readjourney.b.goit.study/api';
+axios.interceptors.request.use(config => {
+  const token = getAuthStore().user?.token;
+
+  if (token) {
+    config.headers.Authorization = `Bearer ${token}`;
+  }
+
+  return config;
+});
 
 export const signUp = async (name: string, email: string, password: string) => {
   try {
@@ -29,21 +40,21 @@ export const signIn = async (email: string, password: string) => {
   }
 };
 
-export const signOut = async () => {
+export const refreshUser = async () => {
   try {
-    const { data } = await axios.post('/users/signout');
-    delete axios.defaults.headers.common.Authorization;
-    return data.message;
+    const { data } = await axios.get('/users/current');
+    return { user: data };
   } catch (error) {
     throw new Error(handleError(error));
   }
 };
 
-// const myUser = {
-//   email: 'test@ukr.net',
-//   name: 'test',
-//   refreshToken:
-//     'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY3ZmU1MWJkNTkxNDk2NGI0YTkxZThjOCIsImlhdCI6MTc0NDcyMDMxNywiZXhwIjoxNzQ1MzI1MTE3fQ.ZLx5OUcvMEDUff1ZqJRrwly46VE5Poed65GnUVQR894',
-//   token:
-//     'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY3ZmU1MWJkNTkxNDk2NGI0YTkxZThjOCIsImlhdCI6MTc0NDcyMDMxNywiZXhwIjoxNzQ0NzIzOTE3fQ.RvslDY8cR4IJwzL0aqWVoqtg-NUIjNS4dPDQbtOxfdU',
-// };
+export const signOut = async () => {
+  try {
+    const { data } = await axios.post('/users/signout');
+    delete axios.defaults.headers.common.Authorization;
+    return data;
+  } catch (error) {
+    throw new Error(handleError(error));
+  }
+};

@@ -1,7 +1,7 @@
 import { create } from 'zustand';
 import { devtools, persist } from 'zustand/middleware';
 import { immer } from 'zustand/middleware/immer';
-import { signUp, signIn, signOut } from '../utils/api';
+import { signUp, signIn, refreshUser, signOut } from '../utils/api';
 
 type AuthState = {
   user: {
@@ -14,6 +14,7 @@ type AuthState = {
   error: string | null;
   signUp: (name: string, email: string, password: string) => Promise<void>;
   signIn: (email: string, password: string) => Promise<void>;
+  getCurrentUser: () => Promise<void>;
   signOut: () => Promise<void>;
 };
 
@@ -27,14 +28,13 @@ export const useAuthStore = create<AuthState>()(
           token: null,
           refreshToken: null,
         },
-        isLoading: false,
+        isLoading: true,
         error: null,
 
         signUp: async (name, email, password) => {
-          set({ isLoading: true, error: null });
+          set({ error: null });
           try {
             const { user } = await signUp(name, email, password);
-
             set({ user });
           } catch (error) {
             throw error;
@@ -44,10 +44,9 @@ export const useAuthStore = create<AuthState>()(
         },
 
         signIn: async (email, password) => {
-          set({ isLoading: true, error: null });
+          set({ error: null });
           try {
             const { user } = await signIn(email, password);
-
             set({ user });
           } catch (error) {
             throw error;
@@ -56,14 +55,30 @@ export const useAuthStore = create<AuthState>()(
           }
         },
 
-        signOut: async () => {
-          set({ isLoading: true, error: null });
+        getCurrentUser: async () => {
+          set({ error: null });
           try {
-            await signOut();
+            const { user } = await refreshUser();
+
+            set({ user });
+          } catch (error) {
+            set({ user: null });
+            throw error;
+          } finally {
+            set({ isLoading: false });
+          }
+        },
+
+        signOut: async () => {
+          set({ error: null });
+          try {
+            const { message } = await signOut();
+            console.log(message);
           } catch (error) {
             throw error;
           } finally {
             set({ user: null, isLoading: false });
+            useAuthStore.persist.clearStorage();
           }
         },
       })),
@@ -72,3 +87,5 @@ export const useAuthStore = create<AuthState>()(
     { name: 'AuthStore' }
   )
 );
+
+export const getAuthStore = useAuthStore.getState;
