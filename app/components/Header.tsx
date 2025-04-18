@@ -7,14 +7,17 @@ import Menu from '@icons/mob-menu.svg';
 import { useAuthStore } from '@/assets/store/useAuthStore';
 import { MobMenu } from './MobMenu';
 import { Navigation } from './Navigation';
+import { useRouter } from 'next/navigation';
 
 export const Header = () => {
+  const { push } = useRouter();
   const [open, setOpen] = useState(false);
   const { user, signOut } = useAuthStore();
 
   const handleLogOut = async () => {
     try {
       await signOut();
+      push('/login');
       // toast.success('Welcome!');
     } catch (error) {
       const err = error as Error;
@@ -23,10 +26,6 @@ export const Header = () => {
       // toast.error(err.message);
     }
   };
-
-  if (!user?.token) {
-    return null;
-  }
 
   return (
     <div className="p-5 pb-2.5 md:p-8 md:pb-4">

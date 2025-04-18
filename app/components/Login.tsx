@@ -10,6 +10,7 @@ import EyeOff from '@icons/eye-off.svg';
 import Eye from '@icons/eye.svg';
 import { schema } from '@/assets/schemes/login';
 import { useAuthStore } from '@/assets/store/useAuthStore';
+import { useRouter } from 'next/navigation';
 // import { CustomLoader } from '../CustomLoader';
 
 type Inputs = {
@@ -20,6 +21,7 @@ type Inputs = {
 export const Login = () => {
   const [showPassword, setShowPassword] = useState(false);
   const { signIn } = useAuthStore();
+  const { push } = useRouter();
   // const { signIn, isLoading } = useAuthStore();
 
   const {
@@ -41,6 +43,7 @@ export const Login = () => {
   const onSubmit: SubmitHandler<Inputs> = async ({ email, password }) => {
     try {
       await signIn(email, password);
+      push('/');
       // toast.success('Welcome!');
     } catch (error) {
       const err = error as Error;
