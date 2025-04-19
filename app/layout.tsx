@@ -2,7 +2,7 @@ import type { Metadata } from 'next';
 import './globals.css';
 import { cookies } from 'next/headers';
 import { UserAuthInit } from './components/UserAuthInit';
-// import { Provider } from './components/Provider';
+import { Provider } from './components/Provider';
 import { refreshUser } from '@/assets/utils/api';
 
 export const metadata: Metadata = {
@@ -20,9 +20,15 @@ export default async function RootLayout({
   const cookieStore = await cookies();
   const token = cookieStore.get('token')?.value;
   let user = null;
+  let isError = false;
 
   if (token) {
-    user = await refreshUser(token);
+    try {
+      user = await refreshUser(token);
+    } catch (error) {
+      console.error(error);
+      isError = true;
+    }
   }
 
   return (
@@ -43,11 +49,14 @@ export default async function RootLayout({
         />
       </head>
       <body className="text-white-primary bg-black-primary font-display scroll-smooth text-xs font-medium md:text-sm">
-        {/* <Provider> */}
-        <UserAuthInit user={user} />
-        {header}
-        <main>{children}</main>
-        {/* </Provider> */}
+        <Provider>
+          <UserAuthInit user={user} isError={isError} />
+          {header}
+          <main>
+            <h1 className="hidden">Read journey</h1>
+            {children}
+          </main>
+        </Provider>
       </body>
     </html>
   );

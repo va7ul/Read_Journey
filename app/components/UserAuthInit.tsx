@@ -1,11 +1,28 @@
 'use client';
 
-import { useEffect } from 'react';
+import { useEffect, useRef } from 'react';
+import Cookies from 'js-cookie';
 import { User } from '@/assets/definitions';
+import { useRouter } from 'next/navigation';
 import { useAuthStore } from '@/assets/store/useAuthStore';
 
-export const UserAuthInit = ({ user }: { user: User | null }) => {
+type Props = {
+  user: User | null;
+  isError: boolean;
+}
+
+export const UserAuthInit = ({ user, isError }: Props) => {
   const { getCurrentUser } = useAuthStore();
+  const { push } = useRouter();
+  const hasRedirected = useRef(false);
+
+  useEffect(() => {
+    if (isError && !hasRedirected.current) {
+      Cookies.remove('token');
+      hasRedirected.current = true;
+      push('/login');
+    }
+  }, [isError, push]);
 
   useEffect(() => {
     if (user) {

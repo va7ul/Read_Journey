@@ -64,9 +64,6 @@ export const refreshUser = async (token: string): Promise<User> => {
 
     return data;
   } catch (error) {
-    if (axios.isAxiosError(error) && error.status === 401) {
-      Cookies.remove('token');
-    }
     throw new Error(handleError(error));
   }
 };
