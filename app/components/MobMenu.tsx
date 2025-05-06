@@ -4,12 +4,12 @@ import X from '@icons/x.svg';
 import { Navigation } from './Navigation';
 
 type Props = {
-  isOpen: boolean;
+  animation: boolean;
   handleLogOut: () => void;
   onClose: () => void;
 };
 
-export const MobMenu = ({ isOpen, handleLogOut, onClose }: Props) => {
+export const MobMenu = ({ animation, handleLogOut, onClose }: Props) => {
   useEffect(() => {
     // Закриваємо Drawer при натисканні ESC
     const handleKeyDown = (event: KeyboardEvent) => {
@@ -36,7 +36,7 @@ export const MobMenu = ({ isOpen, handleLogOut, onClose }: Props) => {
 
   return (
     <>
-      {isOpen && (
+      {animation && (
         <div
           className="bg-black-primary/60 fixed inset-0 z-10 transition-opacity"
           onClick={onClose}
@@ -45,7 +45,7 @@ export const MobMenu = ({ isOpen, handleLogOut, onClose }: Props) => {
 
       <div
         className={`bg-black-tertiary fixed top-0 right-0 z-10 flex h-full w-[50%] min-w-[200px] transform flex-col items-center justify-between pt-70 pb-10 transition-transform duration-500 ease-in-out ${
-          isOpen ? 'translate-x-0' : 'translate-x-full'
+          animation ? 'translate-x-0' : 'translate-x-full'
         }`}
       >
         <Navigation onClose={onClose} />
