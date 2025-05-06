@@ -12,7 +12,24 @@ import { useRouter } from 'next/navigation';
 export const Header = () => {
   const { push } = useRouter();
   const [open, setOpen] = useState(false);
+  const [animation, setAnimation] = useState(false);
   const { user, signOut } = useAuthStore();
+
+  const handleOpen = () => {
+    document.body.classList.add('overflow-hidden');
+    setOpen(true);
+    setTimeout(() => {
+      setAnimation(true);
+    }, 100);
+  };
+
+  const handleClose = () => {
+    document.body.classList.remove('overflow-hidden');
+    setAnimation(false);
+    setTimeout(() => {
+      setOpen(false);
+    }, 500);
+  };
 
   const handleLogOut = async () => {
     try {
@@ -28,7 +45,7 @@ export const Header = () => {
   };
 
   return (
-    <div className="p-5 pb-2.5 md:p-8 md:pb-4">
+    <div className="mx-auto max-w-[1216px] p-5 pb-2.5 md:p-8 md:pb-4">
       <div className="bg-black-secondary flex items-center justify-between rounded-[15px] p-5">
         <div className="flex gap-x-1">
           <Image src={LogoImg} alt="Brand logo" />
@@ -42,7 +59,7 @@ export const Header = () => {
             {user?.name?.slice(0, 1).toUpperCase()}
           </div>
           <div className="ml-2 max-xl:hidden">{user?.name}</div>
-          <button className="ml-2.5 md:hidden" onClick={() => setOpen(true)}>
+          <button className="ml-2.5 md:hidden" onClick={handleOpen}>
             <Image src={Menu} alt="Photo of iPhone" />
           </button>
           <button
@@ -54,11 +71,13 @@ export const Header = () => {
         </div>
       </div>
 
-      <MobMenu
-        isOpen={open}
-        handleLogOut={handleLogOut}
-        onClose={() => setOpen(false)}
-      />
+      {open && (
+        <MobMenu
+          animation={animation}
+          handleLogOut={handleLogOut}
+          onClose={handleClose}
+        />
+      )}
     </div>
   );
 };
