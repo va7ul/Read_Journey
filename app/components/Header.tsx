@@ -4,16 +4,22 @@ import { useState } from 'react';
 import Image from 'next/image';
 import LogoImg from '@icons/logo.svg';
 import Menu from '@icons/mob-menu.svg';
-import { useAuthStore } from '@/assets/store/useAuthStore';
 import { MobMenu } from './MobMenu';
 import { Navigation } from './Navigation';
 import { useRouter } from 'next/navigation';
+import { useAppStore } from '@/assets/store/store';
+import { useShallow } from 'zustand/shallow';
 
 export const Header = () => {
   const { push } = useRouter();
   const [open, setOpen] = useState(false);
   const [animation, setAnimation] = useState(false);
-  const { user, signOut } = useAuthStore();
+  const { user, signOut } = useAppStore(
+    useShallow(state => ({
+      user: state.user,
+      signOut: state.signOut,
+    }))
+  );
 
   const handleOpen = () => {
     document.body.classList.add('overflow-hidden');
@@ -60,7 +66,7 @@ export const Header = () => {
           </div>
           <div className="ml-2 max-xl:hidden">{user?.name}</div>
           <button className="ml-2.5 md:hidden" onClick={handleOpen}>
-            <Image src={Menu} alt="Photo of iPhone" />
+            <Image src={Menu} alt="Burger icon" />
           </button>
           <button
             className="btn-dark ml-4 px-7 py-3 max-md:hidden"

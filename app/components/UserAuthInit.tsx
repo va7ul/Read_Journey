@@ -4,15 +4,15 @@ import { useEffect, useRef } from 'react';
 import Cookies from 'js-cookie';
 import { User } from '@/assets/definitions';
 import { useRouter } from 'next/navigation';
-import { useAuthStore } from '@/assets/store/useAuthStore';
+import { useAppStore } from '@/assets/store/store';
 
 type Props = {
   user: User | null;
   isError: boolean;
-}
+};
 
 export const UserAuthInit = ({ user, isError }: Props) => {
-  const { getCurrentUser } = useAuthStore();
+  const getCurrentUser = useAppStore(state => state.getCurrentUser);
   const { push } = useRouter();
   const hasRedirected = useRef(false);
 

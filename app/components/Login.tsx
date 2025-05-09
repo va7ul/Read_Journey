@@ -9,8 +9,8 @@ import Image from 'next/image';
 import EyeOff from '@icons/eye-off.svg';
 import Eye from '@icons/eye.svg';
 import { schema } from '@/assets/schemes/login';
-import { useAuthStore } from '@/assets/store/useAuthStore';
 import { useRouter } from 'next/navigation';
+import { useAppStore } from '@/assets/store/store';
 // import { CustomLoader } from '../CustomLoader';
 
 type Inputs = {
@@ -20,7 +20,7 @@ type Inputs = {
 
 export const Login = () => {
   const [showPassword, setShowPassword] = useState(false);
-  const { signIn } = useAuthStore();
+  const signIn = useAppStore(state => state.signIn);
   const { push } = useRouter();
   // const { signIn, isLoading } = useAuthStore();
 

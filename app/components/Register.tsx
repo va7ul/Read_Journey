@@ -9,7 +9,7 @@ import Image from 'next/image';
 import EyeOff from '@icons/eye-off.svg';
 import Eye from '@icons/eye.svg';
 import { schema } from '@/assets/schemes/register';
-import { useAuthStore } from '@/assets/store/useAuthStore';
+import { useAppStore } from '@/assets/store/store';
 // import { CustomLoader } from '../CustomLoader';
 
 type Inputs = {
@@ -20,7 +20,7 @@ type Inputs = {
 
 export const Register = () => {
   const [showPassword, setShowPassword] = useState(false);
-  const { signUp } = useAuthStore();
+  const signUp = useAppStore(state => state.signUp);
   // const { signUp, isLoading } = useAuthStore();
 
   const {
