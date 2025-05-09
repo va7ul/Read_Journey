@@ -1,8 +1,8 @@
 import axios from 'axios';
 import Cookies from 'js-cookie';
-import { User } from '../definitions';
-import { handleError } from './handleError';
-import { getAuthStore } from '../store/useAuthStore';
+import { User } from './definitions';
+import { handleError } from './utils/handleError';
+import { getAuthStore } from './store/store';
 
 axios.defaults.baseURL = 'https://readjourney.b.goit.study/api';
 axios.interceptors.request.use(config => {
@@ -59,6 +59,38 @@ export const refreshUser = async (token: string): Promise<User> => {
     const { data } = await axios.get('/users/current', {
       headers: {
         Authorization: `Bearer ${token}`,
+      },
+    });
+
+    return data;
+  } catch (error) {
+    throw new Error(handleError(error));
+  }
+};
+
+export const getRecomendedBooks = async ({
+  token,
+  title,
+  author,
+  page,
+  limit,
+}: {
+  token?: string;
+  title?: string;
+  author?: string;
+  page?: number;
+  limit?: number;
+}) => {
+  try {
+    const { data } = await axios.get('/books/recommend', {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+      params: {
+        title,
+        author,
+        page,
+        limit,
       },
     });
 
