@@ -5,6 +5,15 @@ export type User = {
   refreshToken: string | null;
 };
 
+export type Book = {
+  author: string;
+  imageUrl: string;
+  recommend: boolean;
+  title: string;
+  totalPages: number;
+  _id: string;
+};
+
 export type StoreState = AuthState & BookState;
 
 export type AuthState = {

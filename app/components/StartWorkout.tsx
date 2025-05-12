@@ -15,7 +15,7 @@ export const StartWorkout = () => {
         <div className="bg-white-primary text-black-secondary flex h-10 min-w-10 items-center justify-center rounded-full text-lg font-bold md:h-11 md:min-w-11">
           1
         </div>
-        <p className="block text-sm leading-3.5">
+        <p className="block text-sm/[18px]">
           Create a personal library:{' '}
           <span className="text-white-secondary flex">
             add the books you intend to read to it.
@@ -26,7 +26,7 @@ export const StartWorkout = () => {
         <div className="bg-white-primary text-black-secondary flex h-10 min-w-10 items-center justify-center rounded-full text-lg font-bold md:h-11 md:min-w-11">
           2
         </div>
-        <p className="block text-sm leading-3.5">
+        <p className="block text-sm/[18px]">
           Create your first workout:{' '}
           <span className="text-white-secondary flex">
             define a goal, choose a period, start training.

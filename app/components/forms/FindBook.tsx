@@ -1,30 +1,30 @@
 'use client';
 
+import { useAppStore } from '@/assets/store/store';
 import { useForm, SubmitHandler } from 'react-hook-form';
 
 type Inputs = {
-  book: string;
+  title: string;
   author: string;
 };
 
 export const FindBook = () => {
+  const setParams = useAppStore(state => state.setParams);
+
   const {
     register,
     handleSubmit,
     formState: {},
-  } = useForm<Inputs>({
-    // resolver: yupResolver(schema),
-  });
+  } = useForm<Inputs>({});
 
-  const onSubmit: SubmitHandler<Inputs> = ({ book, author }) => {
-    // signIn(email, password);
-    console.log({ book, author });
-    // router.back();
+  const onSubmit: SubmitHandler<Inputs> = ({ title, author }) => {
+    console.log({ title, author });
+    setParams({ title, author });
   };
 
   return (
-    <div className="w-full md:max-xl:w-[50%]">
-      <h4 className="pl-3.5 max-md:text-[10px]">Filters:</h4>
+    <div className="w-full md:max-xl:w-[50%] xl:text-sm/[18px]">
+      <h4 className="pl-3.5 max-md:text-[10px]/[12px]">Filters:</h4>
       <form id="login-form">
         <div className="input-container mt-2">
           <span className="placeholder">Book title:</span>
@@ -32,7 +32,7 @@ export const FindBook = () => {
             className="pl-18.5 md:pl-21.5"
             suppressHydrationWarning={true}
             type="text"
-            {...register('book')}
+            {...register('title')}
           />
         </div>
 

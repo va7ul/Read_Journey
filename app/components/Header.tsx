@@ -51,7 +51,7 @@ export const Header = () => {
   };
 
   return (
-    <div className="mx-auto max-w-[1216px] p-5 pb-2.5 md:p-8 md:pb-4">
+    <div className="mx-auto max-w-[1280px] p-5 pb-2.5 md:p-8 md:pb-4">
       <div className="bg-black-secondary flex items-center justify-between rounded-[15px] p-5">
         <div className="flex gap-x-1">
           <Image src={LogoImg} alt="Brand logo" />

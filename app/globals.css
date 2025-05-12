@@ -66,10 +66,6 @@ body {
 }
 
 @layer base {
-  * {
-    @apply leading-none;
-  }
-
   button {
     @apply rounded-[30px];
   }

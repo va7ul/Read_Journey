@@ -10,7 +10,8 @@ import { getRecomendedBooks } from '@/assets/api';
 import { useAppStore } from '@/assets/store/store';
 import { useShallow } from 'zustand/shallow';
 import { useDeviceLimit } from '@/assets/hooks/useDeviceLimit';
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
+import { Book } from '@/assets/definitions';
 
 export const Recomended = () => {
   const { title, author, page, setParams } = useAppStore(
@@ -22,9 +23,12 @@ export const Recomended = () => {
     }))
   );
 
+  const [limitReady, setLimitReady] = useState(false);
   const limit = useDeviceLimit();
+
   useEffect(() => {
-    setParams({ limit: limit });
+    setLimitReady(true);
+    setParams({ limit });
   }, [limit, setParams]);
 
   const { data, isError, error } = useQuery({
@@ -50,6 +54,8 @@ export const Recomended = () => {
   const increment = () => {
     setParams({ page: page + 1 });
   };
+
+  if (!limitReady) return;
 
   return (
     <div className="bg-black-secondary w-full rounded-[30px] px-5 py-10 md:p-10 xl:pb-7">
@@ -86,6 +92,25 @@ export const Recomended = () => {
           </button>
         </div>
       </div>
+
+      <ul className="mt-5.5 grid grid-cols-2 gap-x-5 md:mt-5 md:grid-cols-4 md:gap-x-[25px] md:gap-y-7 xl:grid-cols-5 xl:gap-x-4">
+        {data?.results.map(({ _id, imageUrl, title, author }: Book) => (
+          <li key={_id}>
+            <div className="relative aspect-[137/208] min-h-[208px] min-w-[137px]">
+              <Image
+                src={imageUrl}
+                alt="Book Photo"
+                fill
+                className="rounded-lg"
+              />
+            </div>
+            <h3 className="mt-2 truncate text-sm/[18px] font-bold">{title}</h3>
+            <p className="text-white-secondary mt-0.5 text-[10px]/[12px]">
+              {author}
+            </p>
+          </li>
+        ))}
+      </ul>
     </div>
   );
 };
