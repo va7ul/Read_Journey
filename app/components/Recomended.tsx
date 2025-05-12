@@ -101,6 +101,7 @@ export const Recomended = () => {
                 src={imageUrl}
                 alt="Book Photo"
                 fill
+                sizes="(max-width: 768px) 50vw, (max-width: 1280px) 25vw, 15vw"
                 className="rounded-lg"
               />
             </div>
