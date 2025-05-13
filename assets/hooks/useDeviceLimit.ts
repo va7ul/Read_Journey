@@ -1,4 +1,5 @@
 import { useEffect, useState } from 'react';
+
 import { getLimitByWindow } from '../utils/getLimitByWindow';
 
 export const useDeviceLimit = (): number => {

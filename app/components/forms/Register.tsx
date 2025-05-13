@@ -1,28 +1,30 @@
 'use client';
 
 import { useState } from 'react';
+
+import Image from 'next/image';
 import Link from 'next/link';
-import { useForm, SubmitHandler } from 'react-hook-form';
+
 import { yupResolver } from '@hookform/resolvers/yup';
 import clsx from 'clsx';
-import Image from 'next/image';
+import { SubmitHandler, useForm } from 'react-hook-form';
+
+import { schema } from '@/assets/schemes/register';
+import { useAppStore } from '@/assets/store/store';
 import EyeOff from '@icons/eye-off.svg';
 import Eye from '@icons/eye.svg';
-import { schema } from '@/assets/schemes/login';
-import { useRouter } from 'next/navigation';
-import { useAppStore } from '@/assets/store/store';
 // import { CustomLoader } from '../CustomLoader';
 
 type Inputs = {
+  name: string;
   email: string;
   password: string;
 };
 
-export const Login = () => {
+export const Register = () => {
   const [showPassword, setShowPassword] = useState(false);
-  const signIn = useAppStore(state => state.signIn);
-  const { push } = useRouter();
-  // const { signIn, isLoading } = useAuthStore();
+  const signUp = useAppStore(state => state.signUp);
+  // const { signUp, isLoading } = useAuthStore();
 
   const {
     register,
@@ -30,6 +32,7 @@ export const Login = () => {
     formState: { errors, isSubmitted },
   } = useForm<Inputs>({
     // defaultValues: {
+    //   name: 'test@ukr.net',
     //   email: 'test@ukr.net',
     //   password: '1234567',
     // },
@@ -40,10 +43,9 @@ export const Login = () => {
     setShowPassword(!showPassword);
   };
 
-  const onSubmit: SubmitHandler<Inputs> = async ({ email, password }) => {
+  const onSubmit: SubmitHandler<Inputs> = async ({ name, email, password }) => {
     try {
-      await signIn(email, password);
-      push('/');
+      await signUp(name, email, password);
       // toast.success('Welcome!');
     } catch (error) {
       const err = error as Error;
@@ -56,8 +58,21 @@ export const Login = () => {
   return (
     <>
       {/* {loading && <CustomLoader />} */}
-      <form id="login-form">
+      <form id="signup-form">
         <div className="input-container">
+          <span className="placeholder">Name:</span>
+          <input
+            className={clsx(
+              'pl-14 md:pl-16',
+              errors.name ? 'border-error' : isSubmitted && 'border-success'
+            )}
+            suppressHydrationWarning={true}
+            {...register('name')}
+          />
+        </div>
+        {errors.name && <div className="error">{errors.name?.message}</div>}
+
+        <div className="input-container mt-2 md:mt-3.5">
           <span className="placeholder">Mail:</span>
           <input
             className={clsx(
@@ -94,18 +109,18 @@ export const Login = () => {
           <div className="error">{errors.password?.message}</div>
         )}
       </form>
-      <div className="mt-auto max-md:mt-5">
+      <div className="mt-5 md:mt-[82px] xl:mt-auto">
         <button
-          className="btn-light px-[45px] py-3 md:px-[64px] md:py-4"
+          className="btn-light px-[29px] py-3 md:px-[54px] md:py-4"
           onClick={handleSubmit(onSubmit)}
         >
-          Log In
+          Registration
         </button>
         <Link
-          href="/register"
+          href="/login"
           className="text-white-secondary hover:text-white-primary ml-3.5 border-b-1 md:ml-5"
         >
-          Don’t have an account?
+          Already have an account?
         </Link>
       </div>
     </>

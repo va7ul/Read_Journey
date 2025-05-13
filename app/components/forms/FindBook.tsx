@@ -1,7 +1,8 @@
 'use client';
 
+import { SubmitHandler, useForm } from 'react-hook-form';
+
 import { useAppStore } from '@/assets/store/store';
-import { useForm, SubmitHandler } from 'react-hook-form';
 
 type Inputs = {
   title: string;
@@ -25,7 +26,7 @@ export const FindBook = () => {
   return (
     <div className="w-full md:max-xl:w-[50%] xl:text-sm/[18px]">
       <h4 className="pl-3.5 max-md:text-[10px]/[12px]">Filters:</h4>
-      <form id="login-form">
+      <form id="filter-form">
         <div className="input-container mt-2">
           <span className="placeholder">Book title:</span>
           <input
@@ -36,7 +37,7 @@ export const FindBook = () => {
           />
         </div>
 
-        <div className="input-container mt-2 md:mt-3.5">
+        <div className="input-container mt-2">
           <span className="placeholder">The author:</span>
           <input
             className="pl-20.5 md:pl-24"

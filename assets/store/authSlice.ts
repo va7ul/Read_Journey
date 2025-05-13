@@ -1,5 +1,6 @@
 import { StateCreator } from 'zustand';
-import { signUp, signIn, signOut } from '../api';
+
+import { signIn, signOut, signUp } from '../api';
 import { AuthState, StoreState, User } from '../definitions';
 
 export const authSlice: StateCreator<StoreState, [], [], AuthState> = set => ({

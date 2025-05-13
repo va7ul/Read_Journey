@@ -1,14 +1,18 @@
 'use client';
 
 import { useState } from 'react';
+
 import Image from 'next/image';
+import { useRouter } from 'next/navigation';
+
+import { useShallow } from 'zustand/shallow';
+
+import { useAppStore } from '@/assets/store/store';
 import LogoImg from '@icons/logo.svg';
 import Menu from '@icons/mob-menu.svg';
+
 import { MobMenu } from './MobMenu';
 import { Navigation } from './Navigation';
-import { useRouter } from 'next/navigation';
-import { useAppStore } from '@/assets/store/store';
-import { useShallow } from 'zustand/shallow';
 
 export const Header = () => {
   const { push } = useRouter();

@@ -1,25 +1,24 @@
+import { cookies, headers } from 'next/headers';
 import Image from 'next/image';
+
+import { dehydrate, HydrationBoundary } from '@tanstack/react-query';
+
+import { getRecomendedBooks } from '@/assets/api';
+import { getLimitByUserAgent } from '@/assets/utils/getLimitByUserAgent';
+import { getQueryClient } from '@/assets/utils/getQueryClient';
 import Books from '@images/books-small.png';
+
 import { AuthorizedLayout } from './components/AuthorizedLayout';
 import { Dashboard } from './components/Dashboard';
 import { FindBook } from './components/forms/FindBook';
-import { StartWorkout } from './components/StartWorkout';
 import { Recomended } from './components/Recomended';
-import { cookies } from 'next/headers';
-import { getQueryClient } from '@/assets/utils/getQueryClient';
-import { dehydrate, HydrationBoundary } from '@tanstack/react-query';
-import { getRecomendedBooks } from '@/assets/api';
-import { headers } from 'next/headers';
-import { getLimitByUserAgent } from '@/assets/utils/getLimitByUserAgent';
+import { StartWorkout } from './components/StartWorkout';
 
 export default async function Page() {
   const cookieStore = await cookies();
   const token = cookieStore.get('token')?.value;
   if (!token) return;
 
-  const title = '';
-  const author = '';
-  const page = 1;
   let limit = 0;
   const userAgent = (await headers()).get('user-agent');
   if (userAgent) {
@@ -29,7 +28,7 @@ export default async function Page() {
   const queryClient = getQueryClient();
 
   await queryClient.prefetchQuery({
-    queryKey: ['recomendedBooks', { title, author, page, limit }],
+    queryKey: ['recomendedBooks', { title: '', author: '', page: 1, limit }],
     queryFn: () => getRecomendedBooks({ token, limit }),
     staleTime: 60 * 1000,
   });

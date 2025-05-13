@@ -3,6 +3,7 @@
 import Image from 'next/image';
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
+
 import Arrow from '@icons/arrow.svg';
 
 export const StartWorkout = () => {

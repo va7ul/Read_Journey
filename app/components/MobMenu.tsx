@@ -1,6 +1,9 @@
 import { useEffect } from 'react';
+
 import Image from 'next/image';
+
 import X from '@icons/x.svg';
+
 import { Navigation } from './Navigation';
 
 type Props = {

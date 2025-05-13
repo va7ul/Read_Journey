@@ -1,9 +1,9 @@
 'use client';
 
-import { useForm, SubmitHandler } from 'react-hook-form';
+import { SubmitHandler, useForm } from 'react-hook-form';
 
 type Inputs = {
-  book: string;
+  title: string;
   author: string;
   pages: number;
 };
@@ -17,27 +17,25 @@ export const AddBook = () => {
     // resolver: yupResolver(schema),
   });
 
-  const onSubmit: SubmitHandler<Inputs> = ({ book, author, pages }) => {
-    // signIn(email, password);
-    console.log({ book, author, pages });
-    // router.back();
+  const onSubmit: SubmitHandler<Inputs> = ({ title, author, pages }) => {
+    console.log({ title, author, pages });
   };
 
   return (
-    <div className="w-full md:max-xl:w-[50%]">
-      <h4 className="pl-3.5 max-md:text-[10px]">Filters:</h4>
-      <form id="login-form">
+    <div className="w-full md:max-xl:w-[50%] xl:text-sm/[18px]">
+      <h4 className="pl-3.5 max-md:text-[10px]/[12px]">Create your library:</h4>
+      <form id="add-book-form">
         <div className="input-container mt-2">
           <span className="placeholder">Book title:</span>
           <input
             className="pl-18.5 md:pl-21.5"
             suppressHydrationWarning={true}
             type="text"
-            {...register('book')}
+            {...register('title')}
           />
         </div>
 
-        <div className="input-container mt-2 md:mt-3.5">
+        <div className="input-container mt-2">
           <span className="placeholder">The author:</span>
           <input
             className="pl-20.5 md:pl-24"
@@ -47,7 +45,7 @@ export const AddBook = () => {
           />
         </div>
 
-        <div className="input-container mt-2 md:mt-3.5">
+        <div className="input-container mt-2">
           <span className="placeholder">Number of pages:</span>
           <input
             className="pl-29 md:pl-34"

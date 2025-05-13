@@ -1,8 +1,9 @@
 import axios from 'axios';
 import Cookies from 'js-cookie';
+
 import { User } from './definitions';
-import { handleError } from './utils/handleError';
 import { getAuthStore } from './store/store';
+import { handleError } from './utils/handleError';
 
 axios.defaults.baseURL = 'https://readjourney.b.goit.study/api';
 axios.interceptors.request.use(config => {

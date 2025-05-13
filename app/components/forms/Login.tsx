@@ -1,27 +1,31 @@
 'use client';
 
 import { useState } from 'react';
+
+import Image from 'next/image';
 import Link from 'next/link';
-import { useForm, SubmitHandler } from 'react-hook-form';
+import { useRouter } from 'next/navigation';
+
 import { yupResolver } from '@hookform/resolvers/yup';
 import clsx from 'clsx';
-import Image from 'next/image';
+import { SubmitHandler, useForm } from 'react-hook-form';
+
+import { schema } from '@/assets/schemes/login';
+import { useAppStore } from '@/assets/store/store';
 import EyeOff from '@icons/eye-off.svg';
 import Eye from '@icons/eye.svg';
-import { schema } from '@/assets/schemes/register';
-import { useAppStore } from '@/assets/store/store';
 // import { CustomLoader } from '../CustomLoader';
 
 type Inputs = {
-  name: string;
   email: string;
   password: string;
 };
 
-export const Register = () => {
+export const Login = () => {
   const [showPassword, setShowPassword] = useState(false);
-  const signUp = useAppStore(state => state.signUp);
-  // const { signUp, isLoading } = useAuthStore();
+  const signIn = useAppStore(state => state.signIn);
+  const { push } = useRouter();
+  // const { signIn, isLoading } = useAuthStore();
 
   const {
     register,
@@ -29,7 +33,6 @@ export const Register = () => {
     formState: { errors, isSubmitted },
   } = useForm<Inputs>({
     // defaultValues: {
-    //   name: 'test@ukr.net',
     //   email: 'test@ukr.net',
     //   password: '1234567',
     // },
@@ -40,9 +43,10 @@ export const Register = () => {
     setShowPassword(!showPassword);
   };
 
-  const onSubmit: SubmitHandler<Inputs> = async ({ name, email, password }) => {
+  const onSubmit: SubmitHandler<Inputs> = async ({ email, password }) => {
     try {
-      await signUp(name, email, password);
+      await signIn(email, password);
+      push('/');
       // toast.success('Welcome!');
     } catch (error) {
       const err = error as Error;
@@ -55,21 +59,8 @@ export const Register = () => {
   return (
     <>
       {/* {loading && <CustomLoader />} */}
-      <form id="login-form">
+      <form id="signin-form">
         <div className="input-container">
-          <span className="placeholder">Name:</span>
-          <input
-            className={clsx(
-              'pl-14 md:pl-16',
-              errors.name ? 'border-error' : isSubmitted && 'border-success'
-            )}
-            suppressHydrationWarning={true}
-            {...register('name')}
-          />
-        </div>
-        {errors.name && <div className="error">{errors.name?.message}</div>}
-
-        <div className="input-container mt-2 md:mt-3.5">
           <span className="placeholder">Mail:</span>
           <input
             className={clsx(
@@ -106,18 +97,18 @@ export const Register = () => {
           <div className="error">{errors.password?.message}</div>
         )}
       </form>
-      <div className="mt-5 md:mt-[82px] xl:mt-auto">
+      <div className="mt-auto max-md:mt-5">
         <button
-          className="btn-light px-[29px] py-3 md:px-[54px] md:py-4"
+          className="btn-light px-[45px] py-3 md:px-[64px] md:py-4"
           onClick={handleSubmit(onSubmit)}
         >
-          Registration
+          Log In
         </button>
         <Link
-          href="/login"
+          href="/register"
           className="text-white-secondary hover:text-white-primary ml-3.5 border-b-1 md:ml-5"
         >
-          Already have an account?
+          Don’t have an account?
         </Link>
       </div>
     </>

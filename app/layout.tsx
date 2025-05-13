@@ -1,9 +1,12 @@
-import type { Metadata } from 'next';
-import './globals.css';
 import { cookies } from 'next/headers';
-import { UserAuthInit } from './components/UserAuthInit';
-import { Provider } from './components/Provider';
+import './globals.css';
+
 import { refreshUser } from '@/assets/api';
+
+import { Provider } from './components/Provider';
+import { UserAuthInit } from './components/UserAuthInit';
+
+import type { Metadata } from 'next';
 
 export const metadata: Metadata = {
   title: 'Read Journey',

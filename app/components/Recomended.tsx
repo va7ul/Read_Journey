@@ -1,17 +1,20 @@
 'use client';
 
+import { useEffect, useState } from 'react';
+
 import Image from 'next/image';
+
+import { useQuery } from '@tanstack/react-query';
+import { useShallow } from 'zustand/shallow';
+
+import { getRecomendedBooks } from '@/assets/api';
+import { Book } from '@/assets/definitions';
+import { useDeviceLimit } from '@/assets/hooks/useDeviceLimit';
+import { useAppStore } from '@/assets/store/store';
 import ChevronLeftDisable from '@icons/chevron-left-disable.svg';
 import ChevronLeftEnable from '@icons/chevron-left-enable.svg';
 import ChevronRightDisable from '@icons/chevron-right-disable.svg';
 import ChevronRightEnable from '@icons/chevron-right-enable.svg';
-import { useQuery } from '@tanstack/react-query';
-import { getRecomendedBooks } from '@/assets/api';
-import { useAppStore } from '@/assets/store/store';
-import { useShallow } from 'zustand/shallow';
-import { useDeviceLimit } from '@/assets/hooks/useDeviceLimit';
-import { useEffect, useState } from 'react';
-import { Book } from '@/assets/definitions';
 
 export const Recomended = () => {
   const { title, author, page, setParams } = useAppStore(

@@ -1,7 +1,9 @@
 import { create } from 'zustand';
 import { devtools } from 'zustand/middleware';
 import { immer } from 'zustand/middleware/immer';
+
 import { StoreState } from '../definitions';
+
 import { authSlice } from './authSlice';
 import { bookSlice } from './bookSlice';
 

@@ -1,9 +1,12 @@
 'use client';
 
 import { useEffect, useRef } from 'react';
-import Cookies from 'js-cookie';
-import { User } from '@/assets/definitions';
+
 import { useRouter } from 'next/navigation';
+
+import Cookies from 'js-cookie';
+
+import { User } from '@/assets/definitions';
 import { useAppStore } from '@/assets/store/store';
 
 type Props = {

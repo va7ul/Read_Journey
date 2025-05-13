@@ -1,7 +1,8 @@
 import Image from 'next/image';
+
 import LogoImg from '@icons/logo.svg';
-import IphoneMobile from '@images/IphoneMobile.png';
 import IphoneDesktop from '@images/IphoneDesktop.png';
+import IphoneMobile from '@images/IphoneMobile.png';
 
 type Props = {
   children: React.ReactNode;
