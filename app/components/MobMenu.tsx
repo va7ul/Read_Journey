@@ -2,6 +2,8 @@ import { useEffect } from 'react';
 
 import Image from 'next/image';
 
+import { motion } from 'framer-motion';
+
 import X from '@icons/x.svg';
 
 import { Navigation } from './Navigation';
@@ -52,12 +54,14 @@ export const MobMenu = ({ animation, handleLogOut, onClose }: Props) => {
         }`}
       >
         <Navigation onClose={onClose} />
-        <button
+        <motion.button
+          whileHover={{ scale: 1.2 }}
+          whileTap={{ scale: 0.8 }}
           onClick={onClose}
-          className="hover:bg-black-secondary absolute top-8.5 right-10 p-1.5 text-white"
+          className="absolute top-8.5 right-10 text-white"
         >
-          <Image src={X} alt="Photo of iPhone" />
-        </button>
+          <Image src={X} alt="Close icon" />
+        </motion.button>
         <button
           className="btn-dark w-[92px] px-5 py-2.5"
           onClick={handleLogOut}

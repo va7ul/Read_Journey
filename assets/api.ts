@@ -100,3 +100,27 @@ export const getRecomendedBooks = async ({
     throw new Error(handleError(error));
   }
 };
+
+export const addToLibrary = async (id: string) => {
+  try {
+    const { data } = await axios.post(`/books/add/${id}`);
+
+    return data;
+  } catch (error) {
+    throw new Error(handleError(error));
+  }
+};
+
+export const getLibrary = async (token?: string) => {
+  try {
+    const { data } = await axios.get('/books/own', {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    });
+
+    return data;
+  } catch (error) {
+    throw new Error(handleError(error));
+  }
+};

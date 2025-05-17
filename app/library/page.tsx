@@ -2,13 +2,15 @@ import { cookies } from 'next/headers';
 
 import { dehydrate, HydrationBoundary } from '@tanstack/react-query';
 
-import { getRecomendedBooks } from '@/assets/api';
+import { getLibrary, getRecomendedBooks } from '@/assets/api';
 import { getQueryClient } from '@/assets/utils/getQueryClient';
 
 import { AuthorizedLayout } from '../components/AuthorizedLayout';
 import { Dashboard } from '../components/Dashboard';
 import { AddBook } from '../components/forms/AddBook';
+import { MyLibrary } from '../components/MyLibrary';
 import { RecomendedBooks } from '../components/RecomendedBooks';
+import { SelectFilter } from '../components/SelectFilter';
 
 export default async function Page() {
   const cookieStore = await cookies();
@@ -23,6 +25,12 @@ export default async function Page() {
     staleTime: 60 * 1000,
   });
 
+  await queryClient.prefetchQuery({
+    queryKey: ['myBooks'],
+    queryFn: () => getLibrary(token),
+    staleTime: 60 * 1000,
+  });
+
   const dehydratedState = dehydrate(queryClient);
   return (
     <HydrationBoundary state={dehydratedState}>
@@ -31,7 +39,9 @@ export default async function Page() {
           <AddBook />
           <RecomendedBooks />
         </Dashboard>
-        My library
+        <MyLibrary>
+          <SelectFilter />
+        </MyLibrary>
       </AuthorizedLayout>
     </HydrationBoundary>
   );

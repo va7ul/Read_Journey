@@ -4,6 +4,8 @@ import Image from 'next/image';
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
 
+import { motion } from 'framer-motion';
+
 import Arrow from '@icons/arrow.svg';
 
 export const StartWorkout = () => {
@@ -42,12 +44,14 @@ export const StartWorkout = () => {
           My library
         </Link>
       </div>
-      <button
-        className="absolute right-5 bottom-5"
+      <motion.button
+        whileHover={{ scale: 1.2 }}
+        whileTap={{ scale: 0.8 }}
         onClick={() => router.push('/library')}
+        className="absolute right-5 bottom-5"
       >
-        <Image src={Arrow} alt="" />
-      </button>
+        <Image src={Arrow} alt="Right arrow" />
+      </motion.button>
     </div>
   );
 };

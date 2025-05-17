@@ -19,8 +19,7 @@ export const FindBook = () => {
   } = useForm<Inputs>({});
 
   const onSubmit: SubmitHandler<Inputs> = ({ title, author }) => {
-    console.log({ title, author });
-    setParams({ title, author });
+    setParams({ title, author, page: 1 });
   };
 
   return (

@@ -5,6 +5,7 @@ import { useState } from 'react';
 import Image from 'next/image';
 import { useRouter } from 'next/navigation';
 
+import { motion } from 'framer-motion';
 import { useShallow } from 'zustand/shallow';
 
 import { useAppStore } from '@/assets/store/store';
@@ -69,9 +70,14 @@ export const Header = () => {
             {user?.name?.slice(0, 1).toUpperCase()}
           </div>
           <div className="ml-2 max-xl:hidden">{user?.name}</div>
-          <button className="ml-2.5 md:hidden" onClick={handleOpen}>
+          <motion.button
+            whileHover={{ scale: 1.2 }}
+            whileTap={{ scale: 0.8 }}
+            className="ml-2.5 md:hidden"
+            onClick={handleOpen}
+          >
             <Image src={Menu} alt="Burger icon" />
-          </button>
+          </motion.button>
           <button
             className="btn-dark ml-4 px-7 py-3 max-md:hidden"
             onClick={handleLogOut}

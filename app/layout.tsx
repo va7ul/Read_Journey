@@ -59,6 +59,7 @@ export default async function RootLayout({
             <h1 className="hidden">Read journey</h1>
             {children}
           </main>
+          <div id="modal-root" />
         </Provider>
       </body>
     </html>

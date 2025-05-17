@@ -72,7 +72,7 @@ body {
 
   a,
   button {
-    @apply cursor-pointer transition-colors duration-500 ease-in-out;
+    @apply cursor-pointer transition-colors duration-500 ease-in-out outline-none;
   }
 
   input {
