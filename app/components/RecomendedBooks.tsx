@@ -53,31 +53,32 @@ export const RecomendedBooks = () => {
         </h3>
 
         <ul className="mt-3.5 grid grid-cols-3 gap-x-5 md:mt-5 md:gap-x-[25px]">
-          {data?.results.map((book: Book) => {
-            const { _id, imageUrl, title, author } = book;
-            return (
-              <li key={_id}>
-                <div
-                  className="relative aspect-[71/107] min-h-[107px] min-w-[71px] cursor-pointer"
-                  onClick={() => handleOpen(book)}
-                >
-                  <Image
-                    src={imageUrl}
-                    alt="Book Photo"
-                    fill
-                    sizes="(max-width: 768px) 50vw, (max-width: 1280px) 25vw, 15vw"
-                    className="rounded-lg"
-                  />
-                </div>
-                <h3 className="mt-2 truncate text-sm/[18px] font-bold">
-                  {title}
-                </h3>
-                <p className="text-white-secondary mt-0.5 text-[10px]/[12px]">
-                  {author}
-                </p>
-              </li>
-            );
-          })}
+          {data &&
+            data?.results.map((book: Book) => {
+              const { _id, imageUrl, title, author } = book;
+              return (
+                <li key={_id}>
+                  <div
+                    className="relative aspect-[71/107] min-h-[107px] min-w-[71px] cursor-pointer xl:max-h-[107px]"
+                    onClick={() => handleOpen(book)}
+                  >
+                    <Image
+                      src={imageUrl}
+                      alt="Book Photo"
+                      fill
+                      sizes="(max-width: 768px) 50vw, (max-width: 1280px) 25vw, 15vw"
+                      className="rounded-lg"
+                    />
+                  </div>
+                  <h3 className="mt-2 truncate text-sm/[18px] font-bold">
+                    {title}
+                  </h3>
+                  <p className="text-white-secondary mt-0.5 text-[10px]/[12px]">
+                    {author}
+                  </p>
+                </li>
+              );
+            })}
         </ul>
 
         <div className="mt-4.5 md:mt-5">

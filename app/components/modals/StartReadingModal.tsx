@@ -5,11 +5,10 @@ import { useEffect, useState } from 'react';
 import { createPortal } from 'react-dom';
 
 import Image from 'next/image';
+import { useRouter } from 'next/navigation';
 
-import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { AnimatePresence, motion } from 'framer-motion';
 
-import { addToLibrary } from '@/assets/api';
 import { Book } from '@/assets/definitions';
 import X from '@icons/x.svg';
 
@@ -19,22 +18,9 @@ type Props = {
   book: Book | null;
 };
 
-export const AddBookModal = ({ isOpen, onClose, book }: Props) => {
+export const StartReadingModal = ({ isOpen, onClose, book }: Props) => {
   const [mounted, setMounted] = useState(false);
-  const queryClient = useQueryClient();
-
-  const { mutate: setBook } = useMutation({
-    mutationFn: () => addToLibrary(id),
-    onSuccess: book => {
-      queryClient.setQueryData(['myBooks'], (oldBooks: Book[]) =>
-        oldBooks ? [...oldBooks, book] : [book]
-      );
-      onClose();
-    },
-    onError: error => {
-      console.error('Failed to add book:', error);
-    },
-  });
+  const router = useRouter();
 
   useEffect(() => {
     setMounted(true);
@@ -61,7 +47,7 @@ export const AddBookModal = ({ isOpen, onClose, book }: Props) => {
   if (!modalRoot) return null;
   if (!book) return null;
 
-  const { imageUrl, title, author, totalPages, _id: id } = book;
+  const { imageUrl, title, author, totalPages } = book;
 
   return createPortal(
     <AnimatePresence>
@@ -112,9 +98,9 @@ export const AddBookModal = ({ isOpen, onClose, book }: Props) => {
 
                 <button
                   className="btn-dark mt-5 px-6 py-3 md:mt-8"
-                  onClick={() => setBook()}
+                  onClick={() => router.push('/reading')}
                 >
-                  Add to library
+                  Start reading
                 </button>
               </div>
             </motion.div>

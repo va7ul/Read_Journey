@@ -1,4 +1,5 @@
 import { cookies } from 'next/headers';
+import { redirect } from 'next/navigation';
 
 import { dehydrate, HydrationBoundary } from '@tanstack/react-query';
 
@@ -15,20 +16,20 @@ import { SelectFilter } from '../components/SelectFilter';
 export default async function Page() {
   const cookieStore = await cookies();
   const token = cookieStore.get('token')?.value;
-  if (!token) return;
+  if (!token) {
+    redirect('/login');
+  }
 
   const queryClient = getQueryClient();
 
   await queryClient.prefetchQuery({
     queryKey: ['recomendedBooks', { title: '', author: '', page: 1, limit: 3 }],
     queryFn: () => getRecomendedBooks({ token, limit: 3 }),
-    staleTime: 60 * 1000,
   });
 
   await queryClient.prefetchQuery({
     queryKey: ['myBooks'],
     queryFn: () => getLibrary(token),
-    staleTime: 60 * 1000,
   });
 
   const dehydratedState = dehydrate(queryClient);

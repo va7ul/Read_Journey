@@ -3,15 +3,26 @@
 import Image from 'next/image';
 
 import * as Select from '@radix-ui/react-select';
+import { useShallow } from 'zustand/shallow';
 
+import { SortedBy } from '@/assets/definitions';
+import { useAppStore } from '@/assets/store/store';
 import ChevronDown from '@icons/chevron-down.svg';
 
 export const SelectFilter = () => {
+  const { sortedBy, setParams } = useAppStore(
+    useShallow(state => ({
+      sortedBy: state.sortedBy,
+      setParams: state.setParams,
+    }))
+  );
+
+  const handleChange = (value: SortedBy) => {
+    setParams({ sortedBy: value });
+  };
+
   return (
-    <Select.Root
-      defaultValue="All books"
-      //   onValueChange={changeLocale}
-    >
+    <Select.Root defaultValue={sortedBy} onValueChange={handleChange}>
       <Select.Trigger
         className="border-white-primary/20 group inline-flex w-[120px] items-center justify-between rounded-[12px] border border-solid bg-transparent px-3.5 py-3 text-xs/[16px] md:w-[152px] md:py-3.5 md:text-sm/[18px]"
         aria-label="Books filter"
@@ -36,7 +47,7 @@ export const SelectFilter = () => {
         >
           <Select.Viewport>
             <Select.Item
-              value="Unread"
+              value="unread"
               className="text-white-secondary data-[state=checked]:text-white-primary cursor-pointer text-xs/[16px] outline-none md:text-sm/[18px]"
             >
               <Select.ItemText>Unread</Select.ItemText>
@@ -48,13 +59,13 @@ export const SelectFilter = () => {
               <Select.ItemText>In progress</Select.ItemText>
             </Select.Item>
             <Select.Item
-              value="Done"
+              value="done"
               className="text-white-secondary data-[state=checked]:text-white-primary mt-2 cursor-pointer text-xs/[16px] outline-none md:text-sm/[18px]"
             >
               <Select.ItemText>Done</Select.ItemText>
             </Select.Item>
             <Select.Item
-              value="All books"
+              value="all"
               className="text-white-secondary data-[state=checked]:text-white-primary mt-2 cursor-pointer text-xs/[16px] outline-none md:text-sm/[18px]"
             >
               <Select.ItemText>All books</Select.ItemText>

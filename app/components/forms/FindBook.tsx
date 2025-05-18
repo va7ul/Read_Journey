@@ -25,8 +25,8 @@ export const FindBook = () => {
   return (
     <div className="w-full md:max-xl:w-[50%] xl:text-sm/[18px]">
       <h4 className="pl-3.5 max-md:text-[10px]/[12px]">Filters:</h4>
-      <form id="filter-form">
-        <div className="input-container mt-2">
+      <form id="filter-form" className="mt-2">
+        <div className="input-container">
           <span className="placeholder">Book title:</span>
           <input
             className="pl-18.5 md:pl-21.5"

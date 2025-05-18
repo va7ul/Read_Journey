@@ -1,7 +1,7 @@
 import axios from 'axios';
 import Cookies from 'js-cookie';
 
-import { User } from './definitions';
+import { Book, BookState, User } from './definitions';
 import { getAuthStore } from './store/store';
 import { handleError } from './utils/handleError';
 
@@ -15,6 +15,19 @@ axios.interceptors.request.use(config => {
 
   return config;
 });
+
+axios.interceptors.response.use(
+  response => response,
+  error => {
+    if (error.response?.status === 401) {
+      window.location.href = '/login';
+      delete axios.defaults.headers.common.Authorization;
+      Cookies.remove('token');
+    }
+
+    return Promise.reject(error);
+  }
+);
 
 export const signUp = async (name: string, email: string, password: string) => {
   try {
@@ -47,11 +60,12 @@ export const signIn = async (email: string, password: string) => {
 export const signOut = async () => {
   try {
     const { data } = await axios.post('/users/signout');
-    delete axios.defaults.headers.common.Authorization;
-    Cookies.remove('token');
     return data;
   } catch (error) {
     throw new Error(handleError(error));
+  } finally {
+    delete axios.defaults.headers.common.Authorization;
+    Cookies.remove('token');
   }
 };
 
@@ -77,11 +91,7 @@ export const getRecomendedBooks = async ({
   limit,
 }: {
   token?: string;
-  title?: string;
-  author?: string;
-  page?: number;
-  limit?: number;
-}) => {
+} & Partial<BookState>) => {
   try {
     const { data } = await axios.get('/books/recommend', {
       headers: {
@@ -101,9 +111,37 @@ export const getRecomendedBooks = async ({
   }
 };
 
+export const addNewBook = async ({
+  title,
+  author,
+  totalPages,
+}: Partial<Book>) => {
+  try {
+    const { data } = await axios.post('/books/add', {
+      title,
+      author,
+      totalPages,
+    });
+
+    return data;
+  } catch (error) {
+    throw new Error(handleError(error));
+  }
+};
+
 export const addToLibrary = async (id: string) => {
   try {
     const { data } = await axios.post(`/books/add/${id}`);
+
+    return data;
+  } catch (error) {
+    throw new Error(handleError(error));
+  }
+};
+
+export const deleteBook = async (id: string) => {
+  try {
+    const { data } = await axios.delete(`/books/remove/${id}`);
 
     return data;
   } catch (error) {

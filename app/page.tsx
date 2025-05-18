@@ -1,5 +1,6 @@
 import { cookies, headers } from 'next/headers';
 import Image from 'next/image';
+import { redirect } from 'next/navigation';
 
 import { dehydrate, HydrationBoundary } from '@tanstack/react-query';
 
@@ -17,7 +18,9 @@ import { StartWorkout } from './components/StartWorkout';
 export default async function Page() {
   const cookieStore = await cookies();
   const token = cookieStore.get('token')?.value;
-  if (!token) return;
+  if (!token) {
+    redirect('/login');
+  }
 
   let limit = 0;
   const userAgent = (await headers()).get('user-agent');
@@ -30,7 +33,6 @@ export default async function Page() {
   await queryClient.prefetchQuery({
     queryKey: ['recomendedBooks', { title: '', author: '', page: 1, limit }],
     queryFn: () => getRecomendedBooks({ token, limit }),
-    staleTime: 60 * 1000,
   });
 
   const dehydratedState = dehydrate(queryClient);
