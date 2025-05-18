@@ -22,6 +22,11 @@ export const StartReadingModal = ({ isOpen, onClose, book }: Props) => {
   const [mounted, setMounted] = useState(false);
   const router = useRouter();
 
+  const handleClick = () => {
+    onClose();
+    router.push('/reading');
+  };
+
   useEffect(() => {
     setMounted(true);
   }, []);
@@ -98,7 +103,7 @@ export const StartReadingModal = ({ isOpen, onClose, book }: Props) => {
 
                 <button
                   className="btn-dark mt-5 px-6 py-3 md:mt-8"
-                  onClick={() => router.push('/reading')}
+                  onClick={handleClick}
                 >
                   Start reading
                 </button>
