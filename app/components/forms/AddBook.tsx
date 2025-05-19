@@ -1,9 +1,11 @@
 'use client';
 
 import { yupResolver } from '@hookform/resolvers/yup';
+import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { SubmitHandler, useForm } from 'react-hook-form';
 
 import { addNewBook } from '@/assets/api';
+import { Book } from '@/assets/definitions';
 import { schema } from '@/assets/schemes/book';
 
 type Inputs = {
@@ -13,6 +15,7 @@ type Inputs = {
 };
 
 export const AddBook = () => {
+  const queryClient = useQueryClient();
   const {
     register,
     handleSubmit,
@@ -22,15 +25,28 @@ export const AddBook = () => {
     resolver: yupResolver(schema),
   });
 
+  const { mutateAsync: addBook } = useMutation<Book, Error, Inputs>({
+    mutationFn: ({ title, author, totalPages }) =>
+      addNewBook({ title, author, totalPages }),
+    onSuccess: book => {
+      queryClient.setQueryData(['myBooks'], (oldBooks: Book[]) =>
+        oldBooks ? [...oldBooks, book] : [book]
+      );
+    },
+    onError: error => {
+      console.error('Failed to add book:', error);
+    },
+  });
+
   const onSubmit: SubmitHandler<Inputs> = async ({
     title,
     author,
     totalPages,
   }) => {
     console.log({ title, author, totalPages });
+
     try {
-      const res = await addNewBook({ title, author, totalPages });
-      console.log(res);
+      await addBook({ title, author, totalPages });
       reset();
     } catch (error) {
       console.error(error);
@@ -73,7 +89,7 @@ export const AddBook = () => {
 
         <button
           className="btn-dark mt-5 px-5 py-2.5 md:px-7 md:py-3"
-          onSubmit={handleSubmit(onSubmit)}
+          onClick={handleSubmit(onSubmit)}
         >
           Add book
         </button>

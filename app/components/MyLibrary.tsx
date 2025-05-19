@@ -5,12 +5,13 @@ import { useState } from 'react';
 import Image from 'next/image';
 
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
+import clsx from 'clsx';
 
 import { deleteBook, getLibrary } from '@/assets/api';
 import { Book } from '@/assets/definitions';
 import { useAppStore } from '@/assets/store/store';
 import TrashIcon from '@icons/trash.svg';
-import BookDefault from '@images/book-not-found.jpg';
+import BookDefault from '@images/no-book.jpg';
 
 import { StartReadingModal } from './modals/StartReadingModal';
 
@@ -74,23 +75,38 @@ export const MyLibrary = ({ children }: Props) => {
           {children}
         </div>
 
-        <ul className="mt-3.5 grid grid-cols-2 gap-5 md:grid-cols-4 md:gap-x-[25px] md:gap-y-7 xl:grid-cols-5 xl:gap-x-4">
+        <ul className="mt-3.5 grid grid-cols-2 content-stretch gap-5 md:grid-cols-4 md:gap-x-[25px] md:gap-y-7 xl:grid-cols-5 xl:gap-x-4">
           {filteredBooks &&
             filteredBooks.map((book: Book) => {
               const { _id, imageUrl, title, author } = book;
               return (
-                <li key={_id}>
+                <li key={_id} className="flex h-full flex-col">
                   <div
-                    className="relative aspect-[137/208] min-h-[208px] min-w-[137px] cursor-pointer"
+                    className={clsx(
+                      'bg-black-tertiary aspect-[137/208] cursor-pointer rounded-lg',
+                      imageUrl
+                        ? 'relative min-h-[208px] min-w-[137px]'
+                        : 'flex flex-1 items-center justify-center'
+                    )}
                     onClick={() => handleOpen(book)}
                   >
-                    <Image
-                      src={imageUrl || BookDefault}
-                      alt="Book Photo"
-                      fill
-                      sizes="(max-width: 768px) 50vw, (max-width: 1280px) 25vw, 15vw"
-                      className="rounded-lg"
-                    />
+                    {imageUrl ? (
+                      <Image
+                        src={imageUrl}
+                        alt="Book Photo"
+                        fill
+                        sizes="(max-width: 768px) 50vw, (max-width: 1280px) 25vw, 15vw"
+                        className="rounded-lg"
+                      />
+                    ) : (
+                      <Image
+                        src={BookDefault}
+                        alt="Book Photo"
+                        width={137}
+                        height={208}
+                        className="w-full rounded-lg object-contain"
+                      />
+                    )}
                   </div>
                   <div className="mt-2 flex justify-between gap-3.5">
                     <div className="truncate">

@@ -5,6 +5,7 @@ import { useEffect, useState } from 'react';
 import Image from 'next/image';
 
 import { useQuery } from '@tanstack/react-query';
+import clsx from 'clsx';
 import { useShallow } from 'zustand/shallow';
 
 import { getRecomendedBooks } from '@/assets/api';
@@ -15,22 +16,35 @@ import ChevronLeftDisable from '@icons/chevron-left-disable.svg';
 import ChevronLeftEnable from '@icons/chevron-left-enable.svg';
 import ChevronRightDisable from '@icons/chevron-right-disable.svg';
 import ChevronRightEnable from '@icons/chevron-right-enable.svg';
+import BookDefault from '@images/no-book.jpg';
 
 import { AddBookModal } from './modals/AddBookModal';
+import { MultiPopUp } from './modals/MultiPopUp';
 
 export const Recomended = () => {
-  const [isOpen, setIsOpen] = useState(false);
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [isPopUpOpen, setIsPopUpOpen] = useState(false);
   const [selectedBook, setSelectedBook] = useState<Book | null>(null);
 
-  const handleOpen = (book: Book) => {
+  const handleModalOpen = (book: Book) => {
     document.body.classList.add('overflow-hidden');
-    setIsOpen(true);
+    setIsModalOpen(true);
     setSelectedBook(book);
   };
 
-  const handleClose = () => {
+  const handlePopUpOpen = () => {
+    document.body.classList.add('overflow-hidden');
+    setIsPopUpOpen(true);
+  };
+
+  const handleModalClose = () => {
     document.body.classList.remove('overflow-hidden');
-    setIsOpen(false);
+    setIsModalOpen(false);
+  };
+
+  const handlePopUpClose = () => {
+    document.body.classList.remove('overflow-hidden');
+    setIsPopUpOpen(false);
   };
 
   const { title, author, page, setParams } = useAppStore(
@@ -113,23 +127,38 @@ export const Recomended = () => {
           </div>
         </div>
 
-        <ul className="mt-5.5 grid grid-cols-2 gap-x-5 md:mt-5 md:grid-cols-4 md:gap-x-[25px] md:gap-y-7 xl:grid-cols-5 xl:gap-x-4">
+        <ul className="mt-5.5 grid grid-cols-2 content-stretch gap-x-5 md:mt-5 md:grid-cols-4 md:gap-x-[25px] md:gap-y-7 xl:grid-cols-5 xl:gap-x-4">
           {data &&
             data?.results.map((book: Book) => {
               const { _id, imageUrl, title, author } = book;
               return (
-                <li key={_id}>
+                <li key={_id} className="flex h-full flex-col">
                   <div
-                    className="relative aspect-[137/208] min-h-[208px] min-w-[137px] cursor-pointer"
-                    onClick={() => handleOpen(book)}
+                    className={clsx(
+                      'bg-black-tertiary aspect-[137/208] cursor-pointer rounded-lg',
+                      imageUrl
+                        ? 'relative min-h-[208px] min-w-[137px]'
+                        : 'flex flex-1 items-center justify-center'
+                    )}
+                    onClick={() => handleModalOpen(book)}
                   >
-                    <Image
-                      src={imageUrl}
-                      alt="Book Photo"
-                      fill
-                      sizes="(max-width: 768px) 50vw, (max-width: 1280px) 25vw, 15vw"
-                      className="rounded-lg"
-                    />
+                    {imageUrl ? (
+                      <Image
+                        src={imageUrl}
+                        alt="Book Photo"
+                        fill
+                        sizes="(max-width: 768px) 50vw, (max-width: 1280px) 25vw, 15vw"
+                        className="rounded-lg"
+                      />
+                    ) : (
+                      <Image
+                        src={BookDefault}
+                        alt="Book Photo"
+                        width={137}
+                        height={208}
+                        className="w-full rounded-lg object-contain"
+                      />
+                    )}
                   </div>
                   <h3 className="mt-2 truncate text-sm/[18px] font-bold">
                     {title}
@@ -143,7 +172,13 @@ export const Recomended = () => {
         </ul>
       </div>
 
-      <AddBookModal isOpen={isOpen} book={selectedBook} onClose={handleClose} />
+      <AddBookModal
+        isOpen={isModalOpen}
+        book={selectedBook}
+        onOpenPopUp={handlePopUpOpen}
+        onClose={handleModalClose}
+      />
+      <MultiPopUp isOpen={isPopUpOpen} onClose={handlePopUpClose} />
     </>
   );
 };

@@ -12,14 +12,16 @@ import { AnimatePresence, motion } from 'framer-motion';
 import { addToLibrary } from '@/assets/api';
 import { Book } from '@/assets/definitions';
 import X from '@icons/x.svg';
+import BookDefault from '@images/no-book.jpg';
 
 type Props = {
   isOpen: boolean;
+  onOpenPopUp: () => void;
   onClose: () => void;
   book: Book | null;
 };
 
-export const AddBookModal = ({ isOpen, onClose, book }: Props) => {
+export const AddBookModal = ({ isOpen, onOpenPopUp, onClose, book }: Props) => {
   const [mounted, setMounted] = useState(false);
   const queryClient = useQueryClient();
 
@@ -30,6 +32,7 @@ export const AddBookModal = ({ isOpen, onClose, book }: Props) => {
         oldBooks ? [...oldBooks, book] : [book]
       );
       onClose();
+      onOpenPopUp();
     },
     onError: error => {
       console.error('Failed to add book:', error);
@@ -95,13 +98,15 @@ export const AddBookModal = ({ isOpen, onClose, book }: Props) => {
               </motion.button>
 
               <div className="flex flex-col items-center">
-                <Image
-                  src={imageUrl}
-                  alt="Book Photo"
-                  width={140}
-                  height={213}
-                  className="h-[213px] rounded-lg md:h-[233px] md:w-[153px]"
-                />
+                <div className="bg-black-tertiary flex min-h-[213px] items-center justify-center rounded-lg md:min-h-[233px] md:w-[153px]">
+                  <Image
+                    src={imageUrl || BookDefault}
+                    alt="Book Photo"
+                    width={140}
+                    height={213}
+                    className="rounded-lg md:w-[153px]"
+                  />
+                </div>
                 <h3 className="mt-4 max-w-[90%] truncate text-lg/[18px] font-bold md:text-xl/[20px]">
                   {title}
                 </h3>

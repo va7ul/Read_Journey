@@ -5,28 +5,19 @@ import { useEffect, useState } from 'react';
 import { createPortal } from 'react-dom';
 
 import Image from 'next/image';
-import { useRouter } from 'next/navigation';
 
 import { AnimatePresence, motion } from 'framer-motion';
 
-import { Book } from '@/assets/definitions';
 import X from '@icons/x.svg';
-import BookDefault from '@images/no-book.jpg';
+import Like from '@images/like-small.png';
 
 type Props = {
   isOpen: boolean;
   onClose: () => void;
-  book: Book | null;
 };
 
-export const StartReadingModal = ({ isOpen, onClose, book }: Props) => {
+export const MultiPopUp = ({ isOpen, onClose }: Props) => {
   const [mounted, setMounted] = useState(false);
-  const router = useRouter();
-
-  const handleClick = () => {
-    onClose();
-    router.push('/reading');
-  };
 
   useEffect(() => {
     setMounted(true);
@@ -51,9 +42,6 @@ export const StartReadingModal = ({ isOpen, onClose, book }: Props) => {
   const modalRoot = document.getElementById('modal-root');
 
   if (!modalRoot) return null;
-  if (!book) return null;
-
-  const { imageUrl, title, author, totalPages } = book;
 
   return createPortal(
     <AnimatePresence>
@@ -87,28 +75,21 @@ export const StartReadingModal = ({ isOpen, onClose, book }: Props) => {
               </motion.button>
 
               <div className="flex flex-col items-center">
-                <div className="bg-black-tertiary flex min-h-[213px] items-center justify-center rounded-lg md:min-h-[233px] md:w-[153px]">
-                  <Image
-                    src={imageUrl || BookDefault}
-                    alt="Book Photo"
-                    width={140}
-                    height={213}
-                    className="rounded-lg md:w-[153px]"
-                  />
-                </div>
+                <Image
+                  src={Like}
+                  alt="Book Photo"
+                  width={140}
+                  height={213}
+                  className="h-[213px] rounded-lg md:h-[233px] md:w-[153px]"
+                />
                 <h3 className="mt-4 max-w-[90%] truncate text-lg/[18px] font-bold md:text-xl/[20px]">
-                  {title}
+                  Good job
                 </h3>
                 <p className="text-white-secondary mt-0.5 text-xs/[14px] md:text-sm/[18px]">
-                  {author}
+                  Your book is now in
+                  <span>the library! </span>
+                  The joy knows no bounds and now you can start your training
                 </p>
-                <p className="mt-1 text-[10px]/[12px]">{totalPages} pages</p>
-                <button
-                  className="btn-dark mt-5 px-6 py-3 md:mt-8"
-                  onClick={handleClick}
-                >
-                  Start reading
-                </button>
               </div>
             </motion.div>
           </motion.div>

@@ -7,29 +7,43 @@ import Link from 'next/link';
 import { useRouter } from 'next/navigation';
 
 import { useQuery } from '@tanstack/react-query';
+import clsx from 'clsx';
 import { motion } from 'framer-motion';
 
 import { getRecomendedBooks } from '@/assets/api';
 import { Book } from '@/assets/definitions';
 import Arrow from '@icons/arrow.svg';
+import BookDefault from '@images/no-book.jpg';
 
 import { AddBookModal } from './modals/AddBookModal';
+import { MultiPopUp } from './modals/MultiPopUp';
 
 export const RecomendedBooks = () => {
   const router = useRouter();
 
-  const [isOpen, setIsOpen] = useState(false);
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [isPopUpOpen, setIsPopUpOpen] = useState(false);
   const [selectedBook, setSelectedBook] = useState<Book | null>(null);
 
-  const handleOpen = (book: Book) => {
+  const handleModalOpen = (book: Book) => {
     document.body.classList.add('overflow-hidden');
-    setIsOpen(true);
+    setIsModalOpen(true);
     setSelectedBook(book);
   };
 
-  const handleClose = () => {
+  const handlePopUpOpen = () => {
+    document.body.classList.add('overflow-hidden');
+    setIsPopUpOpen(true);
+  };
+
+  const handleModalClose = () => {
     document.body.classList.remove('overflow-hidden');
-    setIsOpen(false);
+    setIsModalOpen(false);
+  };
+
+  const handlePopUpClose = () => {
+    document.body.classList.remove('overflow-hidden');
+    setIsPopUpOpen(false);
   };
 
   const { data, isError, error } = useQuery({
@@ -52,23 +66,39 @@ export const RecomendedBooks = () => {
           Recommended books
         </h3>
 
-        <ul className="mt-3.5 grid grid-cols-3 gap-x-5 md:mt-5 md:gap-x-[25px]">
+        <ul className="mt-3.5 grid grid-cols-3 content-stretch gap-x-5 md:mt-5 md:gap-x-[25px]">
           {data &&
             data?.results.map((book: Book) => {
               const { _id, imageUrl, title, author } = book;
+
               return (
-                <li key={_id}>
+                <li key={_id} className="flex h-full flex-col">
                   <div
-                    className="relative aspect-[71/107] min-h-[107px] min-w-[71px] cursor-pointer xl:max-h-[107px]"
-                    onClick={() => handleOpen(book)}
+                    className={clsx(
+                      'bg-black-secondary aspect-[71/107] cursor-pointer rounded-lg xl:max-h-[107px]',
+                      imageUrl
+                        ? 'relative min-h-[107px] min-w-[71px]'
+                        : 'flex flex-1 items-center justify-center'
+                    )}
+                    onClick={() => handleModalOpen(book)}
                   >
-                    <Image
-                      src={imageUrl}
-                      alt="Book Photo"
-                      fill
-                      sizes="(max-width: 768px) 50vw, (max-width: 1280px) 25vw, 15vw"
-                      className="rounded-lg"
-                    />
+                    {imageUrl ? (
+                      <Image
+                        src={imageUrl}
+                        alt="Book Photo"
+                        fill
+                        sizes="(max-width: 768px) 50vw, (max-width: 1280px) 25vw, 15vw"
+                        className="rounded-lg"
+                      />
+                    ) : (
+                      <Image
+                        src={BookDefault}
+                        alt="Book Photo"
+                        width={137}
+                        height={208}
+                        className="w-full rounded-lg object-contain"
+                      />
+                    )}
                   </div>
                   <h3 className="mt-2 truncate text-sm/[18px] font-bold">
                     {title}
@@ -99,7 +129,13 @@ export const RecomendedBooks = () => {
         </motion.button>
       </div>
 
-      <AddBookModal isOpen={isOpen} book={selectedBook} onClose={handleClose} />
+      <AddBookModal
+        isOpen={isModalOpen}
+        book={selectedBook}
+        onOpenPopUp={handlePopUpOpen}
+        onClose={handleModalClose}
+      />
+      <MultiPopUp isOpen={isPopUpOpen} onClose={handlePopUpClose} />
     </>
   );
 };
