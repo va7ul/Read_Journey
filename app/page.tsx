@@ -7,7 +7,7 @@ import { dehydrate, HydrationBoundary } from '@tanstack/react-query';
 import { getRecomendedBooks } from '@/assets/api';
 import { getLimitByUserAgent } from '@/assets/utils/getLimitByUserAgent';
 import { getQueryClient } from '@/assets/utils/getQueryClient';
-import Books from '@images/books-small.png';
+import Books from '@images/books.png';
 
 import { AuthorizedLayout } from './components/AuthorizedLayout';
 import { Dashboard } from './components/Dashboard';

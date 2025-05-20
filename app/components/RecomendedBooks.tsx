@@ -16,7 +16,7 @@ import Arrow from '@icons/arrow.svg';
 import BookDefault from '@images/no-book.jpg';
 
 import { AddBookModal } from './modals/AddBookModal';
-import { MultiPopUp } from './modals/MultiPopUp';
+import { BookIsAddedPopUp } from './modals/BookIsAddedPopUp';
 
 export const RecomendedBooks = () => {
   const router = useRouter();
@@ -135,7 +135,7 @@ export const RecomendedBooks = () => {
         onOpenPopUp={handlePopUpOpen}
         onClose={handleModalClose}
       />
-      <MultiPopUp isOpen={isPopUpOpen} onClose={handlePopUpClose} />
+      <BookIsAddedPopUp isOpen={isPopUpOpen} onClose={handlePopUpClose} />
     </>
   );
 };

@@ -19,7 +19,7 @@ import ChevronRightEnable from '@icons/chevron-right-enable.svg';
 import BookDefault from '@images/no-book.jpg';
 
 import { AddBookModal } from './modals/AddBookModal';
-import { MultiPopUp } from './modals/MultiPopUp';
+import { BookIsReadedPopUp } from './modals/BookIsReadedPopUp';
 
 export const Recomended = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -178,7 +178,7 @@ export const Recomended = () => {
         onOpenPopUp={handlePopUpOpen}
         onClose={handleModalClose}
       />
-      <MultiPopUp isOpen={isPopUpOpen} onClose={handlePopUpClose} />
+      <BookIsReadedPopUp isOpen={isPopUpOpen} onClose={handlePopUpClose} />
     </>
   );
 };

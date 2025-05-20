@@ -9,14 +9,14 @@ import Image from 'next/image';
 import { AnimatePresence, motion } from 'framer-motion';
 
 import X from '@icons/x.svg';
-import Like from '@images/like-small.png';
+import Like from '@images/like.png';
 
 type Props = {
   isOpen: boolean;
   onClose: () => void;
 };
 
-export const MultiPopUp = ({ isOpen, onClose }: Props) => {
+export const BookIsAddedPopUp = ({ isOpen, onClose }: Props) => {
   const [mounted, setMounted] = useState(false);
 
   useEffect(() => {
@@ -62,7 +62,7 @@ export const MultiPopUp = ({ isOpen, onClose }: Props) => {
               animate={{ scale: 1, opacity: 1 }}
               exit={{ scale: 0.8, opacity: 0 }}
               transition={{ duration: 0.3 }}
-              className="bg-black-secondary border-white-secondary/20 relative top-[50vh] left-1/2 z-20 w-full max-w-[500px] -translate-x-1/2 -translate-y-1/2 rounded-xl border border-solid py-10 md:py-12.5"
+              className="bg-black-secondary border-white-secondary/20 relative top-[50vh] left-1/2 z-20 w-full max-w-[342px] -translate-x-1/2 -translate-y-1/2 rounded-xl border border-solid py-15 md:py-12.5"
               onClick={e => e.stopPropagation()}
             >
               <motion.button
@@ -77,18 +77,22 @@ export const MultiPopUp = ({ isOpen, onClose }: Props) => {
               <div className="flex flex-col items-center">
                 <Image
                   src={Like}
-                  alt="Book Photo"
-                  width={140}
-                  height={213}
-                  className="h-[213px] rounded-lg md:h-[233px] md:w-[153px]"
+                  alt="Like icon"
+                  width={50}
+                  height={50}
+                  className="md:h-[70px] md:w-[68px]"
                 />
-                <h3 className="mt-4 max-w-[90%] truncate text-lg/[18px] font-bold md:text-xl/[20px]">
+                <h3 className="mt-5 max-w-[90%] truncate text-lg/[18px] font-bold md:mt-8 md:text-xl/[20px]">
                   Good job
                 </h3>
-                <p className="text-white-secondary mt-0.5 text-xs/[14px] md:text-sm/[18px]">
+                <p className="text-white-secondary mt-2.5 text-center text-sm/[18px] md:mt-3.5">
                   Your book is now in
-                  <span>the library! </span>
-                  The joy knows no bounds and now you can start your training
+                  <span className="text-white-primary"> the library! </span>The
+                  joy
+                  <br />
+                  knows no bounds and now you can
+                  <br />
+                  start your training
                 </p>
               </div>
             </motion.div>

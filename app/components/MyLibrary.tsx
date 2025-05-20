@@ -11,6 +11,7 @@ import { deleteBook, getLibrary } from '@/assets/api';
 import { Book } from '@/assets/definitions';
 import { useAppStore } from '@/assets/store/store';
 import TrashIcon from '@icons/trash.svg';
+import Books from '@images/books.png';
 import BookDefault from '@images/no-book.jpg';
 
 import { StartReadingModal } from './modals/StartReadingModal';
@@ -75,9 +76,9 @@ export const MyLibrary = ({ children }: Props) => {
           {children}
         </div>
 
-        <ul className="mt-3.5 grid grid-cols-2 content-stretch gap-5 md:grid-cols-4 md:gap-x-[25px] md:gap-y-7 xl:grid-cols-5 xl:gap-x-4">
-          {filteredBooks &&
-            filteredBooks.map((book: Book) => {
+        {filteredBooks?.length ? (
+          <ul className="mt-3.5 grid grid-cols-2 content-stretch gap-5 md:grid-cols-4 md:gap-x-[25px] md:gap-y-7 xl:grid-cols-5 xl:gap-x-4">
+            {filteredBooks.map((book: Book) => {
               const { _id, imageUrl, title, author } = book;
               return (
                 <li key={_id} className="flex h-full flex-col">
@@ -125,7 +126,27 @@ export const MyLibrary = ({ children }: Props) => {
                 </li>
               );
             })}
-        </ul>
+          </ul>
+        ) : (
+          <div className="flex flex-col items-center pt-[64px] max-xl:pb-[120px] max-md:px-[50px] max-md:pb-[60px] md:pt-[86px] xl:pt-[148px]">
+            <div className="bg-black-tertiary flex h-[100px] w-[100px] items-center justify-center rounded-full md:h-[130px] md:w-[130px]">
+              <Image
+                src={Books}
+                alt="Like icon"
+                width={50}
+                height={50}
+                className="md:h-[70px] md:w-[70px]"
+              />
+            </div>
+            <p className="text-white-primary mt-2.5 text-center text-sm/[18px] md:mt-5">
+              To start training, add
+              <span className="text-white-secondary"> some of your books </span>
+              or
+              <br />
+              from the recommended ones
+            </p>
+          </div>
+        )}
       </div>
 
       <StartReadingModal
