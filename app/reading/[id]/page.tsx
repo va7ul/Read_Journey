@@ -17,7 +17,7 @@ type PageProps = {
 };
 
 export default async function Page({ params }: PageProps) {
-  const { id } = await params;
+  const { id } = params;
   const cookieStore = await cookies();
   const token = cookieStore.get('token')?.value;
   if (!token) {
