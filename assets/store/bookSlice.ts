@@ -12,6 +12,7 @@ const defaultBookState: Omit<BookState, 'setParams' | 'reset'> = {
   page: 1,
   limit: initialLimit,
   sortedBy: 'all',
+  isReading: false,
 };
 
 export const bookSlice: StateCreator<StoreState, [], [], BookState> = set => ({

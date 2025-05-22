@@ -35,6 +35,7 @@ export type BookState = {
   page: number;
   limit: number;
   sortedBy: SortedBy;
+  isReading: boolean;
   setParams: (params: Partial<BookState>) => void;
   reset: () => void;
 };

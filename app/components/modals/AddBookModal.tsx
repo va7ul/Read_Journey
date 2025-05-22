@@ -107,7 +107,7 @@ export const AddBookModal = ({ isOpen, onOpenPopUp, onClose, book }: Props) => {
                     className="rounded-lg md:w-[153px]"
                   />
                 </div>
-                <h3 className="mt-4 max-w-[90%] truncate text-lg/[18px] font-bold md:text-xl/[20px]">
+                <h3 className="mt-4 max-w-[80%] text-center text-lg/[18px] font-bold md:text-xl/[20px]">
                   {title}
                 </h3>
                 <p className="text-white-secondary mt-0.5 text-xs/[14px] md:text-sm/[18px]">

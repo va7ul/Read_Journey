@@ -162,3 +162,59 @@ export const getLibrary = async (token?: string) => {
     throw new Error(handleError(error));
   }
 };
+
+export const readingStart = async ({
+  id,
+  page,
+}: {
+  id: string;
+  page: number;
+}) => {
+  try {
+    const { data } = await axios.post('/books/reading/start', { id, page });
+
+    return data;
+  } catch (error) {
+    {
+      throw new Error(handleError(error));
+    }
+  }
+};
+
+export const readingStop = async ({
+  id,
+  page,
+}: {
+  id: string;
+  page: number;
+}) => {
+  try {
+    const { data } = await axios.post('/books/reading/finish', { id, page });
+
+    return data;
+  } catch (error) {
+    {
+      throw new Error(handleError(error));
+    }
+  }
+};
+
+export const getBook = async ({
+  token,
+  id,
+}: {
+  token?: string;
+  id: string;
+}) => {
+  try {
+    const { data } = await axios.get(`/books/${id}`, {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    });
+
+    return data;
+  } catch (error) {
+    throw new Error(handleError(error));
+  }
+};
