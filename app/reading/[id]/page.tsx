@@ -10,10 +10,8 @@ import { MyReading } from '@/app/components/MyReading';
 import { getBook } from '@/assets/api';
 import { getQueryClient } from '@/assets/utils/getQueryClient';
 
-export default async function Page(paramsPromise: {
-  params: Promise<{ id: string }>;
-}) {
-  const { id } = await paramsPromise.params;
+export default async function Page(props: { params: Promise<{ id: string }> }) {
+  const { id } = await props.params;
 
   const cookieStore = await cookies();
   const token = cookieStore.get('token')?.value;
