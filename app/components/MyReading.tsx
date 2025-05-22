@@ -21,6 +21,8 @@ export const MyReading = ({ id }: { id: string }) => {
   }
   console.log(data);
 
+  if (!data) return null;
+
   const { imageUrl, title, author } = data;
 
   const handleClick = () => {};
