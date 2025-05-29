@@ -7,9 +7,14 @@ import { useQuery } from '@tanstack/react-query';
 import { getBook } from '@/assets/api';
 import BookDefault from '@images/no-book.jpg';
 import StartIcon from '@images/start.png';
+import StopIcon from '@images/stop.png';
 
 export const MyReading = ({ id }: { id: string }) => {
-  const { data, isError, error } = useQuery({
+  const {
+    data: book,
+    isError,
+    error,
+  } = useQuery({
     queryKey: ['bookInfo', id],
     queryFn: () => getBook({ id }),
     staleTime: 60 * 1000,
@@ -19,13 +24,13 @@ export const MyReading = ({ id }: { id: string }) => {
   if (isError) {
     console.error(error);
   }
-  console.log(data);
+  console.log(book);
 
-  if (!data) return null;
+  if (!book) return null;
 
-  const { imageUrl, title, author } = data;
+  const { imageUrl, title, author, progress, timeLeftToRead } = book;
 
-  const handleClick = () => {};
+  const isReading = progress?.some(session => session.status === 'active');
 
   return (
     <>
@@ -53,19 +58,13 @@ export const MyReading = ({ id }: { id: string }) => {
           <p className="text-white-secondary mt-1.5 text-[10px]/[12px] md:mt-1 md:text-sm/[18px]">
             {author}
           </p>
-          <button
-            className="mt-5 md:mt-4 xl:mt-6"
-            onClick={handleClick}
-            type="button"
-          >
-            <Image
-              src={StartIcon}
-              alt=""
-              width={40}
-              height={40}
-              className="md:h-[50px] md:w-[50px]"
-            />
-          </button>
+          <Image
+            src={isReading ? StopIcon : StartIcon}
+            alt=""
+            width={40}
+            height={40}
+            className="mt-5 md:mt-4 md:h-[50px] md:w-[50px] xl:mt-6"
+          />
         </div>
       </div>
     </>

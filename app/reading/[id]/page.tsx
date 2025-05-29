@@ -5,7 +5,8 @@ import { dehydrate, HydrationBoundary } from '@tanstack/react-query';
 
 import { AuthorizedLayout } from '@/app/components/AuthorizedLayout';
 import { Dashboard } from '@/app/components/Dashboard';
-import { StartReading } from '@/app/components/forms/StartReading';
+import { Details } from '@/app/components/Details';
+import { AddReading } from '@/app/components/forms/AddReading';
 import { MyReading } from '@/app/components/MyReading';
 import { getBook } from '@/assets/api';
 import { getQueryClient } from '@/assets/utils/getQueryClient';
@@ -32,7 +33,8 @@ export default async function Page(props: { params: Promise<{ id: string }> }) {
     <HydrationBoundary state={dehydratedState}>
       <AuthorizedLayout>
         <Dashboard>
-          <StartReading />
+          <AddReading id={id} />
+          <Details id={id} />
         </Dashboard>
         <MyReading id={id} />
       </AuthorizedLayout>

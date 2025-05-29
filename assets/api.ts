@@ -111,11 +111,7 @@ export const getRecomendedBooks = async ({
   }
 };
 
-export const addNewBook = async ({
-  title,
-  author,
-  totalPages,
-}: Partial<Book>) => {
+export const addNewBook = async ({ title, author, totalPages }: Partial<Book>) => {
   try {
     const { data } = await axios.post('/books/add', {
       title,
@@ -163,13 +159,7 @@ export const getLibrary = async (token?: string) => {
   }
 };
 
-export const readingStart = async ({
-  id,
-  page,
-}: {
-  id: string;
-  page: number;
-}) => {
+export const readingStart = async ({ id, page }: { id: string; page: number }) => {
   try {
     const { data } = await axios.post('/books/reading/start', { id, page });
 
@@ -181,13 +171,7 @@ export const readingStart = async ({
   }
 };
 
-export const readingStop = async ({
-  id,
-  page,
-}: {
-  id: string;
-  page: number;
-}) => {
+export const readingStop = async ({ id, page }: { id: string; page: number }) => {
   try {
     const { data } = await axios.post('/books/reading/finish', { id, page });
 
@@ -199,13 +183,25 @@ export const readingStop = async ({
   }
 };
 
-export const getBook = async ({
-  token,
-  id,
+export const readingDelete = async ({
+  bookId,
+  readingId,
 }: {
-  token?: string;
-  id: string;
+  bookId: string;
+  readingId: number;
 }) => {
+  try {
+    const { data } = await axios.post(`/books/reading?bookId=${bookId}&readingId=${readingId}`);
+
+    return data;
+  } catch (error) {
+    {
+      throw new Error(handleError(error));
+    }
+  }
+};
+
+export const getBook = async ({ token, id }: { token?: string; id: string }) => {
   try {
     const { data } = await axios.get(`/books/${id}`, {
       headers: {

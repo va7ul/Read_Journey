@@ -53,7 +53,7 @@ export const SelectFilter = () => {
               <Select.ItemText>Unread</Select.ItemText>
             </Select.Item>
             <Select.Item
-              value="In progress"
+              value="in-progress"
               className="text-white-secondary data-[state=checked]:text-white-primary mt-2 cursor-pointer text-xs/[16px] outline-none md:text-sm/[18px]"
             >
               <Select.ItemText>In progress</Select.ItemText>
