@@ -29,29 +29,30 @@ axios.interceptors.response.use(
   }
 );
 
-export const signUp = async (name: string, email: string, password: string) => {
+export const signUp = async ({ name, email, password }: { name: string; email: string; password: string }) => {
   try {
-    const { data } = await axios.post('/users/signup', {
+    const { data: user } = await axios.post<User>('/users/signup', {
       name,
       email,
       password,
     });
-    axios.defaults.headers.common.Authorization = `Bearer ${data.token}`;
-    return { user: data };
+    axios.defaults.headers.common.Authorization = `Bearer ${user.token}`;
+    Cookies.set('token', user.token || '');
+    return user;
   } catch (error) {
     throw new Error(handleError(error));
   }
 };
 
-export const signIn = async (email: string, password: string) => {
+export const signIn = async ({ email, password }: { email: string; password: string }) => {
   try {
-    const { data } = await axios.post('/users/signin', {
+    const { data: user } = await axios.post<User>('/users/signin', {
       email,
       password,
     });
-    axios.defaults.headers.common.Authorization = `Bearer ${data.token}`;
-    Cookies.set('token', data.token);
-    return { user: data };
+    axios.defaults.headers.common.Authorization = `Bearer ${user.token}`;
+    Cookies.set('token', user.token || '');
+    return user;
   } catch (error) {
     throw new Error(handleError(error));
   }
@@ -59,7 +60,7 @@ export const signIn = async (email: string, password: string) => {
 
 export const signOut = async () => {
   try {
-    const { data } = await axios.post('/users/signout');
+    const { data } = await axios.post<{ message: string }>('/users/signout');
     return data;
   } catch (error) {
     throw new Error(handleError(error));
@@ -71,7 +72,7 @@ export const signOut = async () => {
 
 export const refreshUser = async (token: string): Promise<User> => {
   try {
-    const { data } = await axios.get('/users/current', {
+    const { data } = await axios.get<User>('/users/current', {
       headers: {
         Authorization: `Bearer ${token}`,
       },
@@ -93,7 +94,12 @@ export const getRecomendedBooks = async ({
   token?: string;
 } & Partial<BookState>) => {
   try {
-    const { data } = await axios.get('/books/recommend', {
+    const { data } = await axios.get<{
+      results: Book[];
+      totalPages: number;
+      page: number;
+      perPage: number;
+    }>('/books/recommend', {
       headers: {
         Authorization: `Bearer ${token}`,
       },
@@ -113,7 +119,7 @@ export const getRecomendedBooks = async ({
 
 export const addNewBook = async ({ title, author, totalPages }: Partial<Book>) => {
   try {
-    const { data } = await axios.post('/books/add', {
+    const { data } = await axios.post<Book>('/books/add', {
       title,
       author,
       totalPages,
@@ -127,7 +133,7 @@ export const addNewBook = async ({ title, author, totalPages }: Partial<Book>) =
 
 export const addToLibrary = async (id: string) => {
   try {
-    const { data } = await axios.post(`/books/add/${id}`);
+    const { data } = await axios.post<Book>(`/books/add/${id}`);
 
     return data;
   } catch (error) {
@@ -137,7 +143,7 @@ export const addToLibrary = async (id: string) => {
 
 export const deleteBook = async (id: string) => {
   try {
-    const { data } = await axios.delete(`/books/remove/${id}`);
+    const { data } = await axios.delete<{ message: string; id: string }>(`/books/remove/${id}`);
 
     return data;
   } catch (error) {
@@ -147,7 +153,7 @@ export const deleteBook = async (id: string) => {
 
 export const getLibrary = async (token?: string) => {
   try {
-    const { data } = await axios.get('/books/own', {
+    const { data } = await axios.get<Book[]>('/books/own', {
       headers: {
         Authorization: `Bearer ${token}`,
       },
@@ -161,7 +167,7 @@ export const getLibrary = async (token?: string) => {
 
 export const readingStart = async ({ id, page }: { id: string; page: number }) => {
   try {
-    const { data } = await axios.post('/books/reading/start', { id, page });
+    const { data } = await axios.post<Book>('/books/reading/start', { id, page });
 
     return data;
   } catch (error) {
@@ -173,7 +179,7 @@ export const readingStart = async ({ id, page }: { id: string; page: number }) =
 
 export const readingStop = async ({ id, page }: { id: string; page: number }) => {
   try {
-    const { data } = await axios.post('/books/reading/finish', { id, page });
+    const { data } = await axios.post<Book>('/books/reading/finish', { id, page });
 
     return data;
   } catch (error) {
@@ -183,15 +189,9 @@ export const readingStop = async ({ id, page }: { id: string; page: number }) =>
   }
 };
 
-export const readingDelete = async ({
-  bookId,
-  readingId,
-}: {
-  bookId: string;
-  readingId: number;
-}) => {
+export const readingDelete = async ({ bookId, readingId }: { bookId: string; readingId: number }) => {
   try {
-    const { data } = await axios.post(`/books/reading?bookId=${bookId}&readingId=${readingId}`);
+    const { data } = await axios.post<Book>(`/books/reading?bookId=${bookId}&readingId=${readingId}`);
 
     return data;
   } catch (error) {
@@ -203,7 +203,7 @@ export const readingDelete = async ({
 
 export const getBook = async ({ token, id }: { token?: string; id: string }) => {
   try {
-    const { data } = await axios.get(`/books/${id}`, {
+    const { data } = await axios.get<Book>(`/books/${id}`, {
       headers: {
         Authorization: `Bearer ${token}`,
       },

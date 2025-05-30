@@ -3,8 +3,7 @@ import { StateCreator } from 'zustand';
 import { BookState, StoreState } from '../definitions';
 import { getLimitByWindow } from '../utils/getLimitByWindow';
 
-const initialLimit =
-  typeof window !== 'undefined' ? getLimitByWindow(window.innerWidth) : 10;
+const initialLimit = typeof window !== 'undefined' ? getLimitByWindow(window.innerWidth) : 10;
 
 const defaultBookState: Omit<BookState, 'setParams' | 'reset'> = {
   title: '',
@@ -12,7 +11,6 @@ const defaultBookState: Omit<BookState, 'setParams' | 'reset'> = {
   page: 1,
   limit: initialLimit,
   sortedBy: 'all',
-  isReading: false,
 };
 
 export const bookSlice: StateCreator<StoreState, [], [], BookState> = set => ({

@@ -28,28 +28,15 @@ export const FindBook = () => {
       <form id="filter-form" className="mt-2">
         <div className="input-container">
           <span className="placeholder">Book title:</span>
-          <input
-            className="pl-18.5 md:pl-21.5"
-            suppressHydrationWarning={true}
-            type="text"
-            {...register('title')}
-          />
+          <input className="pl-18.5 md:pl-21.5" suppressHydrationWarning={true} type="text" {...register('title')} />
         </div>
 
         <div className="input-container mt-2">
           <span className="placeholder">The author:</span>
-          <input
-            className="pl-20.5 md:pl-24"
-            suppressHydrationWarning={true}
-            type="text"
-            {...register('author')}
-          />
+          <input className="pl-20.5 md:pl-24" suppressHydrationWarning={true} type="text" {...register('author')} />
         </div>
 
-        <button
-          className="btn-dark mt-5 px-5 py-2.5 md:px-7 md:py-3"
-          onClick={handleSubmit(onSubmit)}
-        >
+        <button className="btn-dark mt-5 px-5 py-2.5 md:px-7 md:py-3" onClick={handleSubmit(onSubmit)}>
           To apply
         </button>
       </form>

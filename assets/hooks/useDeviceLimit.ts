@@ -3,9 +3,7 @@ import { useEffect, useState } from 'react';
 import { getLimitByWindow } from '../utils/getLimitByWindow';
 
 export const useDeviceLimit = (): number => {
-  const [limit, setLimit] = useState(() =>
-    typeof window !== 'undefined' ? getLimitByWindow(window.innerWidth) : 10
-  );
+  const [limit, setLimit] = useState(() => (typeof window !== 'undefined' ? getLimitByWindow(window.innerWidth) : 10));
 
   useEffect(() => {
     const handleResize = () => {

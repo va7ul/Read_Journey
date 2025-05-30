@@ -45,7 +45,7 @@ export const Register = () => {
 
   const onSubmit: SubmitHandler<Inputs> = async ({ name, email, password }) => {
     try {
-      await signUp(name, email, password);
+      await signUp({ name, email, password });
       // toast.success('Welcome!');
     } catch (error) {
       const err = error as Error;
@@ -62,10 +62,7 @@ export const Register = () => {
         <div className="input-container">
           <span className="placeholder">Name:</span>
           <input
-            className={clsx(
-              'pl-14 md:pl-16',
-              errors.name ? 'border-error' : isSubmitted && 'border-success'
-            )}
+            className={clsx('pl-14 md:pl-16', errors.name ? 'border-error' : isSubmitted && 'border-success')}
             suppressHydrationWarning={true}
             {...register('name')}
           />
@@ -75,10 +72,7 @@ export const Register = () => {
         <div className="input-container mt-2 md:mt-3.5">
           <span className="placeholder">Mail:</span>
           <input
-            className={clsx(
-              'pl-12 md:pl-13.5',
-              errors.email ? 'border-error' : isSubmitted && 'border-success'
-            )}
+            className={clsx('pl-12 md:pl-13.5', errors.email ? 'border-error' : isSubmitted && 'border-success')}
             suppressHydrationWarning={true}
             {...register('email')}
           />
@@ -88,10 +82,7 @@ export const Register = () => {
         <div className="input-container mt-2 md:mt-3.5">
           <span className="placeholder">Password:</span>
           <input
-            className={clsx(
-              'pl-19.5 md:pl-22',
-              errors.password ? 'border-error' : isSubmitted && 'border-success'
-            )}
+            className={clsx('pl-19.5 md:pl-22', errors.password ? 'border-error' : isSubmitted && 'border-success')}
             suppressHydrationWarning={true}
             {...register('password')}
             type={showPassword ? 'text' : 'password'}
@@ -105,21 +96,13 @@ export const Register = () => {
             height={18}
           />
         </div>
-        {errors.password && (
-          <div className="error">{errors.password?.message}</div>
-        )}
+        {errors.password && <div className="error">{errors.password?.message}</div>}
       </form>
       <div className="mt-5 md:mt-[82px] xl:mt-auto">
-        <button
-          className="btn-light px-[29px] py-3 md:px-[54px] md:py-4"
-          onClick={handleSubmit(onSubmit)}
-        >
+        <button className="btn-light px-[29px] py-3 md:px-[54px] md:py-4" onClick={handleSubmit(onSubmit)}>
           Registration
         </button>
-        <Link
-          href="/login"
-          className="text-white-secondary hover:text-white-primary ml-3.5 border-b-1 md:ml-5"
-        >
+        <Link href="/login" className="text-white-secondary hover:text-white-primary ml-3.5 border-b-1 md:ml-5">
           Already have an account?
         </Link>
       </div>

@@ -26,23 +26,16 @@ export const AddBook = () => {
   });
 
   const { mutateAsync: addBook } = useMutation<Book, Error, Inputs>({
-    mutationFn: ({ title, author, totalPages }) =>
-      addNewBook({ title, author, totalPages }),
+    mutationFn: ({ title, author, totalPages }) => addNewBook({ title, author, totalPages }),
     onSuccess: book => {
-      queryClient.setQueryData(['myBooks'], (oldBooks: Book[]) =>
-        oldBooks ? [...oldBooks, book] : [book]
-      );
+      queryClient.setQueryData(['myBooks'], (oldBooks: Book[]) => (oldBooks ? [...oldBooks, book] : [book]));
     },
     onError: error => {
       console.error('Failed to add book:', error);
     },
   });
 
-  const onSubmit: SubmitHandler<Inputs> = async ({
-    title,
-    author,
-    totalPages,
-  }) => {
+  const onSubmit: SubmitHandler<Inputs> = async ({ title, author, totalPages }) => {
     console.log({ title, author, totalPages });
 
     try {
@@ -59,38 +52,20 @@ export const AddBook = () => {
       <form id="add-book-form" className="mt-2">
         <div className="input-container">
           <span className="placeholder">Book title:</span>
-          <input
-            className="pl-18.5 md:pl-21.5"
-            suppressHydrationWarning={true}
-            type="text"
-            {...register('title')}
-          />
+          <input className="pl-18.5 md:pl-21.5" suppressHydrationWarning={true} type="text" {...register('title')} />
         </div>
 
         <div className="input-container mt-2">
           <span className="placeholder">The author:</span>
-          <input
-            className="pl-20.5 md:pl-24"
-            suppressHydrationWarning={true}
-            type="text"
-            {...register('author')}
-          />
+          <input className="pl-20.5 md:pl-24" suppressHydrationWarning={true} type="text" {...register('author')} />
         </div>
 
         <div className="input-container mt-2">
           <span className="placeholder">Number of pages:</span>
-          <input
-            className="pl-29 md:pl-34"
-            suppressHydrationWarning={true}
-            type="number"
-            {...register('totalPages')}
-          />
+          <input className="pl-29 md:pl-34" suppressHydrationWarning={true} type="number" {...register('totalPages')} />
         </div>
 
-        <button
-          className="btn-dark mt-5 px-5 py-2.5 md:px-7 md:py-3"
-          onClick={handleSubmit(onSubmit)}
-        >
+        <button className="btn-dark mt-5 px-5 py-2.5 md:px-7 md:py-3" onClick={handleSubmit(onSubmit)}>
           Add book
         </button>
       </form>

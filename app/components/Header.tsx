@@ -78,22 +78,13 @@ export const Header = () => {
           >
             <Image src={Menu} alt="Burger icon" />
           </motion.button>
-          <button
-            className="btn-dark ml-4 px-7 py-3 max-md:hidden"
-            onClick={handleLogOut}
-          >
+          <button className="btn-dark ml-4 px-7 py-3 max-md:hidden" onClick={handleLogOut}>
             Log out
           </button>
         </div>
       </div>
 
-      {open && (
-        <MobMenu
-          animation={animation}
-          handleLogOut={handleLogOut}
-          onClose={handleClose}
-        />
-      )}
+      {open && <MobMenu animation={animation} handleLogOut={handleLogOut} onClose={handleClose} />}
     </div>
   );
 };

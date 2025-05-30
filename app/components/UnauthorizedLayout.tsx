@@ -23,16 +23,8 @@ export const UnauthorizedLayout = ({ children }: Props) => {
         {children}
       </div>
       <div className="bg-black-secondary rounded-[30px] px-10 pt-5 md:px-24.5 md:pt-20 md:max-xl:hidden xl:min-h-[800px] xl:max-w-[600px]">
-        <Image
-          src={IphoneMobile}
-          alt="Photo of iPhone"
-          className="min-md:hidden"
-        />
-        <Image
-          src={IphoneDesktop}
-          alt="Photo of iPhone"
-          className="h-[656px] w-[405px] max-xl:hidden"
-        />
+        <Image src={IphoneMobile} alt="Photo of iPhone" className="min-md:hidden" />
+        <Image src={IphoneDesktop} alt="Photo of iPhone" className="h-[656px] w-[405px] max-xl:hidden" />
       </div>
     </div>
   );

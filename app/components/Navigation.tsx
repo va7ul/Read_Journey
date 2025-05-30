@@ -20,9 +20,7 @@ export const Navigation = ({ onClose }: Props) => {
           onClick={onClose}
           className={clsx(
             'hover:text-white-primary',
-            pathname === '/'
-              ? 'text-white-primary current-page'
-              : 'text-white-secondary'
+            pathname === '/' ? 'text-white-primary current-page' : 'text-white-secondary'
           )}
         >
           Home
@@ -34,9 +32,7 @@ export const Navigation = ({ onClose }: Props) => {
           onClick={onClose}
           className={clsx(
             'hover:text-white-primary',
-            pathname === '/library'
-              ? 'text-white-primary current-page'
-              : 'text-white-secondary'
+            pathname === '/library' ? 'text-white-primary current-page' : 'text-white-secondary'
           )}
         >
           My library

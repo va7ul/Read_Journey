@@ -5,6 +5,7 @@ import { AuthState, StoreState, User } from '../definitions';
 
 export const authSlice: StateCreator<StoreState, [], [], AuthState> = set => ({
   user: {
+    _id: null,
     name: null,
     email: null,
     token: null,
@@ -13,10 +14,10 @@ export const authSlice: StateCreator<StoreState, [], [], AuthState> = set => ({
   isLoading: true,
   error: null,
 
-  signUp: async (name, email, password) => {
+  signUp: async ({ name, email, password }) => {
     set({ error: null });
     try {
-      const { user } = await signUp(name, email, password);
+      const user = await signUp({ name, email, password });
       set({ user });
     } catch (error) {
       throw error;
@@ -25,10 +26,10 @@ export const authSlice: StateCreator<StoreState, [], [], AuthState> = set => ({
     }
   },
 
-  signIn: async (email, password) => {
+  signIn: async ({ email, password }) => {
     set({ error: null });
     try {
-      const { user } = await signIn(email, password);
+      const user = await signIn({ email, password });
       set({ user });
     } catch (error) {
       throw error;

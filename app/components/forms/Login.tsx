@@ -45,7 +45,7 @@ export const Login = () => {
 
   const onSubmit: SubmitHandler<Inputs> = async ({ email, password }) => {
     try {
-      await signIn(email, password);
+      await signIn({ email, password });
       push('/');
       // toast.success('Welcome!');
     } catch (error) {
@@ -63,10 +63,7 @@ export const Login = () => {
         <div className="input-container">
           <span className="placeholder">Mail:</span>
           <input
-            className={clsx(
-              'pl-12 md:pl-13.5',
-              errors.email ? 'border-error' : isSubmitted && 'border-success'
-            )}
+            className={clsx('pl-12 md:pl-13.5', errors.email ? 'border-error' : isSubmitted && 'border-success')}
             suppressHydrationWarning={true}
             {...register('email')}
           />
@@ -76,10 +73,7 @@ export const Login = () => {
         <div className="input-container mt-2 md:mt-3.5">
           <span className="placeholder">Password:</span>
           <input
-            className={clsx(
-              'pl-19.5 md:pl-22',
-              errors.password ? 'border-error' : isSubmitted && 'border-success'
-            )}
+            className={clsx('pl-19.5 md:pl-22', errors.password ? 'border-error' : isSubmitted && 'border-success')}
             suppressHydrationWarning={true}
             {...register('password')}
             type={showPassword ? 'text' : 'password'}
@@ -93,21 +87,13 @@ export const Login = () => {
             height={18}
           />
         </div>
-        {errors.password && (
-          <div className="error">{errors.password?.message}</div>
-        )}
+        {errors.password && <div className="error">{errors.password?.message}</div>}
       </form>
       <div className="mt-auto max-md:mt-5">
-        <button
-          className="btn-light px-[45px] py-3 md:px-[64px] md:py-4"
-          onClick={handleSubmit(onSubmit)}
-        >
+        <button className="btn-light px-[45px] py-3 md:px-[64px] md:py-4" onClick={handleSubmit(onSubmit)}>
           Log In
         </button>
-        <Link
-          href="/register"
-          className="text-white-secondary hover:text-white-primary ml-3.5 border-b-1 md:ml-5"
-        >
+        <Link href="/register" className="text-white-secondary hover:text-white-primary ml-3.5 border-b-1 md:ml-5">
           Don’t have an account?
         </Link>
       </div>

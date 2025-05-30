@@ -61,14 +61,12 @@ export const RecomendedBooks = () => {
 
   return (
     <>
-      <div className="bg-black-tertiary relative mt-5 flex w-full flex-col rounded-xl p-5 md:max-xl:w-[50%] md:max-xl:py-6.5 xl:mt-19.5">
-        <h3 className="text-lg leading-none font-bold md:text-xl">
-          Recommended books
-        </h3>
+      <div className="bg-black-tertiary relative mt-5 flex w-full flex-col rounded-xl p-5 md:mt-0 md:max-xl:ml-8 md:max-xl:w-[50%] md:max-xl:py-6.5 xl:mt-19.5">
+        <h3 className="text-lg leading-none font-bold md:text-xl">Recommended books</h3>
 
         <ul className="mt-3.5 grid grid-cols-3 content-stretch gap-x-5 md:mt-5 md:gap-x-[25px]">
           {data &&
-            data?.results.map((book: Book) => {
+            data.results.map((book: Book) => {
               const { _id, imageUrl, title, author } = book;
 
               return (
@@ -76,9 +74,7 @@ export const RecomendedBooks = () => {
                   <div
                     className={clsx(
                       'bg-black-secondary aspect-[71/107] cursor-pointer rounded-lg xl:max-h-[107px]',
-                      imageUrl
-                        ? 'relative min-h-[107px] min-w-[71px]'
-                        : 'flex flex-1 items-center justify-center'
+                      imageUrl ? 'relative min-h-[107px] min-w-[71px]' : 'flex flex-1 items-center justify-center'
                     )}
                     onClick={() => handleModalOpen(book)}
                   >
@@ -100,22 +96,15 @@ export const RecomendedBooks = () => {
                       />
                     )}
                   </div>
-                  <h3 className="mt-2 truncate text-sm/[18px] font-bold">
-                    {title}
-                  </h3>
-                  <p className="text-white-secondary mt-0.5 text-[10px]/[12px]">
-                    {author}
-                  </p>
+                  <h3 className="mt-2 truncate text-sm/[18px] font-bold">{title}</h3>
+                  <p className="text-white-secondary mt-0.5 text-[10px]/[12px]">{author}</p>
                 </li>
               );
             })}
         </ul>
 
         <div className="mt-4.5 md:mt-5">
-          <Link
-            href="/"
-            className="text-white-secondary hover:text-white-primary border-b-1 text-sm leading-4.5"
-          >
+          <Link href="/" className="text-white-secondary hover:text-white-primary border-b-1 text-sm leading-4.5">
             Home
           </Link>
         </div>
@@ -129,12 +118,7 @@ export const RecomendedBooks = () => {
         </motion.button>
       </div>
 
-      <AddBookModal
-        isOpen={isModalOpen}
-        book={selectedBook}
-        onOpenPopUp={handlePopUpOpen}
-        onClose={handleModalClose}
-      />
+      <AddBookModal isOpen={isModalOpen} book={selectedBook} onOpenPopUp={handlePopUpOpen} onClose={handleModalClose} />
       <BookIsAddedPopUp isOpen={isPopUpOpen} onClose={handlePopUpClose} />
     </>
   );

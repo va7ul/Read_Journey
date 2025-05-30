@@ -43,13 +43,7 @@ export default async function Page() {
           <FindBook />
           <StartWorkout />
           <div className="bg-black-tertiary text-white-secondary mt-5 flex items-center gap-x-3.5 rounded-xl px-5 py-3.5 max-xl:hidden">
-            <Image
-              src={Books}
-              alt="Icon of books"
-              width={40}
-              height={40}
-              className="max-h-10"
-            />
+            <Image src={Books} alt="Icon of books" width={40} height={40} className="max-h-10" />
             <p className="block text-sm/[18px]">
               {`"`}Books are {` `}
               <span className="text-white-primary">windows</span> {` `}

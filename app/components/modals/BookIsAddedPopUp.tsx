@@ -75,20 +75,13 @@ export const BookIsAddedPopUp = ({ isOpen, onClose }: Props) => {
               </motion.button>
 
               <div className="flex flex-col items-center">
-                <Image
-                  src={Like}
-                  alt="Like icon"
-                  width={50}
-                  height={50}
-                  className="md:h-[70px] md:w-[68px]"
-                />
+                <Image src={Like} alt="Like icon" width={50} height={50} className="md:h-[70px] md:w-[68px]" />
                 <h3 className="mt-5 max-w-[90%] truncate text-lg/[18px] font-bold md:mt-8 md:text-xl/[20px]">
                   Good job
                 </h3>
                 <p className="text-white-secondary mt-2.5 text-center text-sm/[18px] md:mt-3.5">
                   Your book is now in
-                  <span className="text-white-primary"> the library! </span>The
-                  joy
+                  <span className="text-white-primary"> the library! </span>The joy
                   <br />
                   knows no bounds and now you can
                   <br />

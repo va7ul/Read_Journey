@@ -62,9 +62,7 @@ export const AddReading = ({ id }: { id: string }) => {
 
   if (!book) return null;
 
-  const isReading = book?.progress?.some(
-    session => session.status === 'active'
-  );
+  const isReading = book.progress?.some(el => el.status === 'active');
 
   return (
     <div className="w-full md:max-xl:w-[50%] xl:text-sm/[18px]">
@@ -72,18 +70,10 @@ export const AddReading = ({ id }: { id: string }) => {
       <form id="add-book-form" className="mt-2">
         <div className="input-container mt-2">
           <span className="placeholder">Page number:</span>
-          <input
-            className="pl-25 md:pl-29"
-            suppressHydrationWarning={true}
-            type="number"
-            {...register('page')}
-          />
+          <input className="pl-25 md:pl-29" suppressHydrationWarning={true} type="number" {...register('page')} />
         </div>
 
-        <button
-          className="btn-dark mt-5 px-5 py-2.5 md:px-7 md:py-3"
-          onClick={handleSubmit(onSubmit)}
-        >
+        <button className="btn-dark mt-5 px-5 py-2.5 md:px-7 md:py-3" onClick={handleSubmit(onSubmit)}>
           {isReading ? 'To stop' : 'To start'}
         </button>
       </form>

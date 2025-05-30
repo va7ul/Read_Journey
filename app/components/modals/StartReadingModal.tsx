@@ -96,17 +96,10 @@ export const StartReadingModal = ({ isOpen, onClose, book }: Props) => {
                     className="rounded-lg md:w-[153px]"
                   />
                 </div>
-                <h3 className="mt-4 max-w-[80%] text-center text-lg/[18px] font-bold md:text-xl/[20px]">
-                  {title}
-                </h3>
-                <p className="text-white-secondary mt-0.5 text-xs/[14px] md:text-sm/[18px]">
-                  {author}
-                </p>
+                <h3 className="mt-4 max-w-[80%] text-center text-lg/[18px] font-bold md:text-xl/[20px]">{title}</h3>
+                <p className="text-white-secondary mt-0.5 text-xs/[14px] md:text-sm/[18px]">{author}</p>
                 <p className="mt-1 text-[10px]/[12px]">{totalPages} pages</p>
-                <button
-                  className="btn-dark mt-5 px-6 py-3 md:mt-8"
-                  onClick={handleClick}
-                >
+                <button className="btn-dark mt-5 px-6 py-3 md:mt-8" onClick={handleClick}>
                   Start reading
                 </button>
               </div>

@@ -5,8 +5,7 @@ export function middleware(request: NextRequest) {
   const token = request.cookies.get('token')?.value;
   const pathname = request.nextUrl.pathname;
 
-  const isAuthPage =
-    pathname.startsWith('/login') || pathname.startsWith('/register');
+  const isAuthPage = pathname.startsWith('/login') || pathname.startsWith('/register');
   const isPrivatePage = !isAuthPage;
 
   if (!token && isPrivatePage) {

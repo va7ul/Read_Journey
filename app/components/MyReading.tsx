@@ -30,16 +30,20 @@ export const MyReading = ({ id }: { id: string }) => {
 
   const { imageUrl, title, author, progress, timeLeftToRead } = book;
 
-  const isReading = progress?.some(session => session.status === 'active');
+  console.log(timeLeftToRead);
+
+  const isReading = progress?.some(el => el.status === 'active');
 
   return (
     <>
       <div className="bg-black-secondary w-full rounded-[30px] px-5 py-10 md:p-10 xl:pb-7">
-        <div className="flex items-center justify-between">
-          <h2 className="text-xl/5 font-bold md:text-[28px]/[32px]">
-            My reading
-          </h2>
-          <p>ТУТ БУДЕ ЧАС!!!!</p>
+        <div className="flex items-center justify-between md:items-start">
+          <h2 className="text-xl/5 font-bold md:text-[28px]/[32px]">My reading</h2>
+          {timeLeftToRead && (
+            <p className="text-white-secondary text-xs/[16px] md:text-sm/[18px]">
+              {timeLeftToRead.hours} hours and {timeLeftToRead.minutes} minutes left
+            </p>
+          )}
         </div>
 
         <div className="mt-10 flex flex-col items-center md:mt-8 xl:mt-11">
@@ -55,9 +59,7 @@ export const MyReading = ({ id }: { id: string }) => {
           <h3 className="mt-2.5 max-w-[60%] text-center text-sm/[18px] font-bold md:mt-6 md:max-w-[50%] md:text-xl/[20px]">
             {title}
           </h3>
-          <p className="text-white-secondary mt-1.5 text-[10px]/[12px] md:mt-1 md:text-sm/[18px]">
-            {author}
-          </p>
+          <p className="text-white-secondary mt-1.5 text-[10px]/[12px] md:mt-1 md:text-sm/[18px]">{author}</p>
           <Image
             src={isReading ? StopIcon : StartIcon}
             alt=""

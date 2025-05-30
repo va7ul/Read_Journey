@@ -75,13 +75,7 @@ export const BookIsReadedPopUp = ({ isOpen, onClose }: Props) => {
               </motion.button>
 
               <div className="flex flex-col items-center">
-                <Image
-                  src={Books}
-                  alt="Like icon"
-                  width={50}
-                  height={50}
-                  className="md:h-[70px] md:w-[68px]"
-                />
+                <Image src={Books} alt="Like icon" width={50} height={50} className="md:h-[70px] md:w-[68px]" />
                 <h3 className="mt-5 max-w-[90%] truncate text-lg/[18px] font-bold md:mt-8 md:text-xl/[20px]">
                   The book is read
                 </h3>

@@ -41,12 +41,7 @@ export const MobMenu = ({ animation, handleLogOut, onClose }: Props) => {
 
   return (
     <>
-      {animation && (
-        <div
-          className="bg-black-primary/60 fixed inset-0 z-10 transition-opacity"
-          onClick={onClose}
-        />
-      )}
+      {animation && <div className="bg-black-primary/60 fixed inset-0 z-10 transition-opacity" onClick={onClose} />}
 
       <div
         className={`bg-black-tertiary fixed top-0 right-0 z-10 flex h-full w-[50%] min-w-[200px] transform flex-col items-center justify-between pt-70 pb-10 transition-transform duration-500 ease-in-out ${
@@ -62,10 +57,7 @@ export const MobMenu = ({ animation, handleLogOut, onClose }: Props) => {
         >
           <Image src={X} alt="Close icon" />
         </motion.button>
-        <button
-          className="btn-dark w-[92px] px-5 py-2.5"
-          onClick={handleLogOut}
-        >
+        <button className="btn-dark w-[92px] px-5 py-2.5" onClick={handleLogOut}>
           Log out
         </button>
       </div>
