@@ -39,7 +39,7 @@ export const MyReading = ({ id }: { id: string }) => {
       <div className="bg-black-secondary w-full rounded-[30px] px-5 py-10 md:p-10 xl:pb-7">
         <div className="flex items-center justify-between md:items-start">
           <h2 className="text-xl/5 font-bold md:text-[28px]/[32px]">My reading</h2>
-          {timeLeftToRead && (
+          {(timeLeftToRead?.hours || timeLeftToRead?.minutes) && (
             <p className="text-white-secondary text-xs/[16px] md:text-sm/[18px]">
               {timeLeftToRead.hours} hours and {timeLeftToRead.minutes} minutes left
             </p>

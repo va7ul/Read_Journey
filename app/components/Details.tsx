@@ -31,5 +31,5 @@ export const Details = ({ id }: { id: string }) => {
 
   if (!book) return null;
 
-  return <>{!book.progress?.length ? <Progress /> : view === 'statistics' ? <Statistics /> : <Diary />}</>;
+  return <>{!book.progress?.length ? <Progress /> : view === 'statistics' ? <Statistics id={id} /> : <Diary />}</>;
 };
