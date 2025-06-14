@@ -27,7 +27,8 @@ export const Statistics = ({ id }: { id: string }) => {
   if (!book) return null;
 
   const { progress, totalPages } = book;
-  const lastReadedPage = Math.max(...(progress?.map(el => (el.finishPage ? el.finishPage : 0)) ?? [0]));
+  const inactiveReading = progress?.filter(el => el.status === 'inactive');
+  const lastReadedPage = inactiveReading?.[inactiveReading.length - 1]?.finishPage || 0;
   const readedPercentage = ((lastReadedPage / totalPages) * 100).toFixed(2);
 
   const data = {

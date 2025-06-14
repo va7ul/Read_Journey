@@ -24,7 +24,7 @@ export type Book = {
   recommend?: boolean;
   status?: SortedBy;
   owner?: string;
-  progress?: Progress[];
+  progress: Progress[];
   timeLeftToRead?: TimeLeftToRead;
   _id: string;
 };
@@ -58,3 +58,11 @@ export type BookState = {
   setParams: (params: Partial<BookState>) => void;
   reset: () => void;
 };
+
+export type GroupedProgress = Record<
+  string,
+  {
+    pages: number;
+    list: Progress[];
+  }
+>;

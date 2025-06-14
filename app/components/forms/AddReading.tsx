@@ -41,7 +41,15 @@ export const AddReading = ({ id }: { id: string }) => {
 
   const { mutateAsync: startReadBook } = useMutation<Book, Error, Inputs>({
     mutationFn: ({ page }) => {
-      return isReading ? readingStop({ id, page }) : readingStart({ id, page });
+      if (isReading) {
+        return readingStop({ id, page });
+      }
+
+      if (page === lastReadedPage || page === lastReadedPage + 1) {
+        return readingStart({ id, page });
+      }
+
+      throw new Error('Поверніться до сторінки, на якій Ви зупинились');
     },
     onSuccess: book => {
       queryClient.setQueryData(['bookInfo', id], () => book);
@@ -53,6 +61,9 @@ export const AddReading = ({ id }: { id: string }) => {
 
   const onSubmit: SubmitHandler<Inputs> = async ({ page }) => {
     try {
+      if (page > totalPages) {
+        return;
+      }
       await startReadBook({ page });
       reset();
     } catch (error) {
@@ -62,7 +73,10 @@ export const AddReading = ({ id }: { id: string }) => {
 
   if (!book) return null;
 
-  const isReading = book.progress?.some(el => el.status === 'active');
+  const { progress, totalPages } = book;
+  const isReading = progress?.some(el => el.status === 'active');
+  const inactiveReading = progress?.filter(el => el.status === 'inactive');
+  const lastReadedPage = inactiveReading?.[inactiveReading.length - 1]?.finishPage || 0;
 
   return (
     <div className="w-full md:max-xl:w-[50%] xl:text-sm/[18px]">

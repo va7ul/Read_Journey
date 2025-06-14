@@ -11,7 +11,6 @@ export const SidebarNav = () => {
   const pathname = usePathname();
   const searchParams = useSearchParams();
   const view = searchParams.get('view');
-  const isDiary = view === 'diary';
   const isStatistics = view === 'statistics';
 
   const handleToggle = (view: 'diary' | 'statistics') => {
@@ -23,7 +22,7 @@ export const SidebarNav = () => {
     <div className="flex gap-2">
       <button onClick={() => handleToggle('diary')} className="block">
         <Image
-          src={isDiary ? HourglassActive : Hourglass}
+          src={!isStatistics ? HourglassActive : Hourglass}
           alt="Like icon"
           width={16}
           height={16}
