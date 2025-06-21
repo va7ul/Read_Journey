@@ -41,11 +41,11 @@ export const AddReading = ({ id }: { id: string }) => {
 
   const { mutateAsync: startReadBook } = useMutation<Book, Error, Inputs>({
     mutationFn: ({ page }) => {
-      if (isReading) {
+      if (isReading && page > activeReadingStart) {
         return readingStop({ id, page });
       }
 
-      if (page === lastReadedPage || page === lastReadedPage + 1) {
+      if (!isReading && page === lastReadedPage + 1) {
         return readingStart({ id, page });
       }
 
@@ -60,6 +60,8 @@ export const AddReading = ({ id }: { id: string }) => {
   });
 
   const onSubmit: SubmitHandler<Inputs> = async ({ page }) => {
+    page = Number(page);
+
     try {
       if (page > totalPages) {
         return;
@@ -77,6 +79,7 @@ export const AddReading = ({ id }: { id: string }) => {
   const isReading = progress?.some(el => el.status === 'active');
   const inactiveReading = progress?.filter(el => el.status === 'inactive');
   const lastReadedPage = inactiveReading?.[inactiveReading.length - 1]?.finishPage || 0;
+  const activeReadingStart = progress?.find(el => el.status === 'active')?.startPage || 0;
 
   return (
     <div className="w-full md:max-xl:w-[50%] xl:text-sm/[18px]">

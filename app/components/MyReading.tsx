@@ -36,7 +36,7 @@ export const MyReading = ({ id }: { id: string }) => {
 
   return (
     <>
-      <div className="bg-black-secondary w-full rounded-[30px] px-5 py-10 md:p-10 xl:pb-7">
+      <div className="bg-black-secondary w-full rounded-[30px] px-5 py-10 md:p-10 xl:h-[665px]">
         <div className="flex items-center justify-between md:items-start">
           <h2 className="text-xl/5 font-bold md:text-[28px]/[32px]">My reading</h2>
           {(timeLeftToRead?.hours || timeLeftToRead?.minutes) && (

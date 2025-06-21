@@ -72,8 +72,8 @@ export const Statistics = ({ id }: { id: string }) => {
         we create our own reading history.
       </p>
       <div className="bg-black-tertiary mt-5 flex w-full flex-col items-center justify-center gap-5 rounded-[12px] py-5 md:gap-4 md:max-xl:py-7 xl:gap-2.5">
-        <div className="relative h-[116px] w-[116px] md:h-[138px] md:w-[138px] xl:h-[190px] xl:w-[190px]">
-          <span className="absolute top-[48px] left-[37px] text-lg/[20px] font-bold md:top-[59px] md:left-[46px] md:text-xl/[20px] xl:top-[85px] xl:left-[72px]">
+        <div className="relative h-[116px] w-[116px] md:h-[138px] md:w-[138px] xl:h-[200px] xl:w-[200px] xl:p-2.5">
+          <span className="absolute top-[48px] left-[37px] text-lg/[20px] font-bold md:top-[59px] md:left-[46px] md:text-xl/[20px] xl:top-[90px] xl:left-[76px]">
             100%
           </span>
           <Doughnut data={data} options={options} />

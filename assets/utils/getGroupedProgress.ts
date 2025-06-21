@@ -10,7 +10,7 @@ export const getGroupedProgress = (inactiveReading: Progress[]) => {
       acc[date] = { pages: 0, list: [] };
     }
 
-    const pagesRead = item.finishPage - item.startPage + 1;
+    const pagesRead = item.finishPage - item.startPage;
     acc[date].pages += pagesRead;
     acc[date].list.push(item);
     return acc;

@@ -38,9 +38,9 @@ export const Diary = ({ id }: { id: string }) => {
         <h3 className="text-lg/[18px] font-bold md:text-xl/[20px]">Diary</h3>
         <SidebarNav />
       </div>
-      <div className="bg-black-tertiary after:bg-black-secondary relative mt-5 flex w-full flex-col items-center justify-center rounded-[12px] py-4 after:absolute after:top-4 after:bottom-4 after:left-[23px] after:w-[2px]">
-        <ul className="flex h-[180px] w-full flex-col gap-4 overflow-y-auto">
-          <ReadingList groupedProgress={groupedProgress} totalPages={totalPages} />
+      <div className="bg-black-tertiary mt-5 w-full rounded-[12px] py-4 xl:py-5">
+        <ul className="flex h-[180px] w-full flex-col overflow-y-auto md:h-[220px] xl:h-[344px]">
+          {inactiveReading.length ? <ReadingList groupedProgress={groupedProgress} totalPages={totalPages} /> : <></>}
         </ul>
       </div>
     </div>

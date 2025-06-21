@@ -189,9 +189,9 @@ export const readingStop = async ({ id, page }: { id: string; page: number }) =>
   }
 };
 
-export const readingDelete = async ({ bookId, readingId }: { bookId: string; readingId: number }) => {
+export const readingDelete = async ({ bookId, readingId }: { bookId: string; readingId: string }) => {
   try {
-    const { data } = await axios.post<Book>(`/books/reading?bookId=${bookId}&readingId=${readingId}`);
+    const { data } = await axios.delete<Book>(`/books/reading?bookId=${bookId}&readingId=${readingId}`);
 
     return data;
   } catch (error) {
